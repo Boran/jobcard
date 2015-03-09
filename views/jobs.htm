@@ -1,0 +1,12 @@
+<div class="container">
+<div class=hero-unit>
+  <h3>List a few jobs</h3>
+</div>
+<repeat group="{{ @result }}" value="{{ @item }}">
+   <div class="row">
+    <div class=col-xs-1>Job {{@item.jcard_no}}</div>
+    <div class=col-xs-11>{{ @item.Cust_code  }} {{ @item.lastchange  }} {{ @item.cost_note }} </div>
+    <!-- <div class="clearfix visible-md-block"></div>  -->
+  </div>
+</repeat>
+</div>

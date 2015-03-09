@@ -1,0 +1,108 @@
+<!-- job.htm -->
+<div class="container container-fluid">
+  <h3>General</h3>
+  <div class="row">
+    <div class="col-xs-3">
+      <table class="table table-condensed"><tbody>
+        <tr><td>Jobcard</td><td><strong><mark>{{@job.Job}}</mark></strong></td></tr>
+        <tr><td>Order contact</td><td>{{@job.Ord_contact}}</td></tr>
+        <tr><td>Order No.</td><td>{{@job.Ord_no}}</td></tr>
+        <tr><td>Order date</td><td>{{@job.Ord_date}}</td></tr>
+        <tr><td>Del date1</td><td><strong>{{@job.Del_date1}}</strong></td></tr>
+        <tr><td>Del date2</td><td>{{@job.Del_date2}}</td></tr>
+        <tr><td>Cust. part no.</td><td>{{@job.Cust_part}}</td></tr>
+      </tbody></table>
+    </div>
+    <div class="col-xs-3">
+      <table class="table table-condensed"><tbody>
+        <tr><td>Colour</td><td><strong>{{@job.Film_col}}</strong></td></tr>
+        <tr><td>Width</td><td><strong>{{@job.Overall_width}}</strong></td></tr>
+        <tr><td>Gusset to</td><td>{{@job.Gus_width}}</td></tr>
+        <tr><td>Length</td><td><strong>{{@job.Cn_size}}</strong></td></tr>
+        <tr><td>Bottom gusset</td><td>{{@job.Bottom_gusset}}</td></tr>
+        <tr><td>Flapsize</td><td>{{@job.Flap_size}}</td></tr>
+        <tr><td>Thickness</td><td>{{@job.Guage}}</td></tr>
+        <tr><td>Quantity</td><td><strong>{{@job.Quantity}}</strong></td></tr>
+      </tbody></table>
+    </div>
+    <div class="col-xs-3">
+      <table class="table table-condensed"><tbody>
+        <tr><td>Priority</td><td>{{@job.JpriorityLookup}}</td></tr>
+        <tr><td>Job status</td><td>{{@job.JobStatus}}</td></tr>
+        <tr><td>Stock item</td><td>{{@job.S_item_Lookup}}</td></tr>
+        <tr><td>Spec</td><td><strong>{{@job.Spec}}</strong></td></tr>
+        <tr><td>Film/bags?</td><td>{{@job.Film_or_bags}}</td></tr>
+        <tr><td>Job approved by</td><td></td></tr>
+        <tr><td>Unit</td><td>{{@job.UnitOfSale}}</td></tr>
+      </tbody></table>
+    </div>
+    <div class="col-xs-3">
+      <address>
+      <strong>{{@job.Customer}}</strong><br>
+      {{@job.ADDRESS_1}}<br>
+      {{@job.ADDRESS_2}}<br>
+      {{@job.ADDRESS_3}}<br>
+      {{@job.ADDRESS_4}}
+      <address>
+      <hr>
+      <p>Product reference:</p>
+      <p class="lead">
+      {{@job.Print_ref}}</p>
+    </div>
+
+
+  </div>
+
+  <h3>Printing</h3>
+  <div class="row">
+    <div class="col-xs-3">
+      <table class="table table-striped"><tbody>
+        <tr><td>Machine</td><td>{{@job.PrinterLookup}}</td></tr>
+        <tr><td>Material</td><td>{{@job.pr_material}}</td></tr>
+        <tr><td>Thickness</td><td>{{@job.Pr_thick}}</td></tr>
+        <tr><td>Width</td><td>{{@job.Pr_width}}</td></tr>
+        <tr><td>Weight</td><td>{{@job.Pr_kgs}}</td></tr>
+        <tr><td>Metres</td><td>{{@job.pr_m}}</td></tr>
+        <tr><td>Plates</td><td>{{@job.Plates}}</td></tr>
+      </tbody></table>
+    </div>
+    <div class="col-xs-3">
+      {{@job.Print_ref}}<br>
+      {{@job.Pr_design1}}<br>
+      {{@job.Pr_barcode1}}
+      <table class="table table-condensed"><tbody>
+        <tr><td>Sides</td><td>{{@job.Pr_sides}}</td></tr>
+        <tr><td>Steroes</td><td>{{@job.Pr_no_stereo}} {{@job.Pr_no_across}} a</td></tr>
+        <tr><td>Roll size</td><td>{{@job.Pr_rollsize}}</td></tr>
+        <tr><td>Cylinder</td><td>{{@job.Pr_eyemark}}</td></tr>
+        <tr><td>Eyemark</td><td>{{@job.Pr_direction}}</td></tr>
+        <tr><td>Position</td><td>{{@job.Pr_position}}</td></tr>
+        <tr><td>Print</td><td>{{@job.Pr_type}}</td></tr>
+      </tbody></table>
+    </div>
+    <div class="col-xs-3 table-bordered">
+      <table class="table "><tbody>
+        <tr><td>Rewind</td><td>{{@job.Pr_rewdir}}</td></tr>
+        <tr><td>Ink Type</td><td>{{@job.Ink_Type}}</td></tr>
+      </tbody></table>
+    </div>
+    <div class="col-xs-3">
+      <table class="table table-condensed">
+      <thead><tr><th>Nr.</th><th>Colour</th><th>Anilox</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>{{@job.Colour1}}</td><td>{{@job.anilox1}}</td></tr>
+        <tr><td>2</td><td>{{@job.Colour2}}</td><td>{{@job.anilox2}}</td></tr>
+        <tr><td>3</td><td>{{@job.Colour3}}</td><td>{{@job.anilox3}}</td></tr>
+        <tr><td>4</td><td>{{@job.Colour4}}</td><td>{{@job.anilox4}}</td></tr>
+        <tr><td>5</td><td>{{@job.Colour5}}</td><td>{{@job.anilox5}}</td></tr>
+        <tr><td>6</td><td>{{@job.Colour6}}</td><td>{{@job.anilox6}}</td></tr>
+        <tr><td>7</td><td>{{@job.Colour7}}</td><td>{{@job.anilox7}}</td></tr>
+        <tr><td>8</td><td>{{@job.Colour8}}</td><td>{{@job.anilox8}}</td></tr>
+      </tbody></table>
+    </div>
+    <div class="col-xs-12">Instructions: {{@job.pr_text}}</div>
+  </div>
+
+</div> <!-- /container -->
+<!-- end job.htm -->
+
