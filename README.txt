@@ -1,5 +1,5 @@
+Experiments to view jobcards
 Learning to use Fatfree (with bootstrap).
-These are just private notes, don't expect a working app.
 
 prerequisites: install in /var/www:
 - fatfree-master
