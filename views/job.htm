@@ -1,5 +1,5 @@
 <!-- job.htm -->
-<div class="container container-fluid">
+<div class="container-fluid">
   <h3>General</h3>
   <div class="row">
     <div class="col-xs-3">
@@ -15,7 +15,7 @@
     </div>
     <div class="col-xs-3">
       <table class="table table-condensed"><tbody>
-        <tr><td>Colour</td><td><strong>{{@job.Film_col}}</strong></td></tr>
+        <tr><td><abbr title="Some abbreviation help text">Colour</abbr></td><td><strong>{{@job.Film_col}}</strong></td></tr>
         <tr><td>Width</td><td><strong>{{@job.Overall_width}}</strong></td></tr>
         <tr><td>Gusset to</td><td>{{@job.Gus_width}}</td></tr>
         <tr><td>Length</td><td><strong>{{@job.Cn_size}}</strong></td></tr>
@@ -100,7 +100,7 @@
         <tr><td>8</td><td>{{@job.Colour8}}</td><td>{{@job.anilox8}}</td></tr>
       </tbody></table>
     </div>
-    <div class="col-xs-12">Instructions: {{@job.pr_text}}</div>
+    <div class="col-xs-12">Instructions: {{@job.pr_text}}<hr></div>
   </div>
 
 </div> <!-- /container -->

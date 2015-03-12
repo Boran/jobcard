@@ -68,9 +68,9 @@ echo Template::instance()->render('views/footer.htm'); // std page
 if ($debug == 3) {
   #echo $db->log();
   #echo '<br>' 
-  $logger->write(\Registry::get('db')->log());
-  $execution_time = round(microtime(true) - $f3->get('TIME'), 3);
-  $logger->write('Executed in ' . $execution_time . ' secs using ' . round(memory_get_usage() / 1024 / 1024, 2) . '/' . round(memory_get_peak_usage() / 1024 / 1024, 2) . ' MB memory/peak');
+  #$logger->write(\Registry::get('db')->log());
+  #$execution_time = round(microtime(true) - $f3->get('TIME'), 3);
+  #$logger->write('Executed in ' . $execution_time . ' secs using ' . round(memory_get_usage() / 1024 / 1024, 2) . '/' . round(memory_get_peak_usage() / 1024 / 1024, 2) . ' MB memory/peak');
 }
 
 ?>

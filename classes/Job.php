@@ -10,23 +10,38 @@ class Job extends BaseDB {
     $this->job=new DB\SQL\Mapper($this->db, $this->table);
   }
 
-    function beforeRoute() {
-      #echo 'in Job::beforeRoute()>';
+  function beforeRoute() {
+    #echo 'in Job::beforeRoute()>';
+    #$this->logger->write('in Job::beforeRoute()');
+  }
+  function find() {
+    if ($this->f3->exists('POST.job')) {
+      $find = $this->f3->get('POST.job');
+    } else if ($this->f3->exists('GET.job')) {
+      $find = $this->f3->get('GET.job');
+    } else {
+      echo Template::instance()->render('views/jobsearch.htm');
+      return;
     }
-    function display() {
+    echo "<h3>find=$find</h3>";
+    $this->logger->write('in Job::found() got:' . $find);
+    $this->f3->reroute("/job/$find");
+  }
+  function getall() {
       //echo 'job::display(): ' . $this->job->Job;
       // several entries
       $f3=$this->f3;
       $f3->set('result',$this->db->exec('SELECT * FROM jobcard limit 3'));
       echo Template::instance()->render('views/jobs.htm');
+  }
 
-    }
-
-    function get($f3, $args) { 
+  function get($f3, $args) { 
       //print_r($args);
       $this->job->load(array('Job=?', $args['item']));
-      if ($this->job->dry())
-        echo 'No record matching criteria';
+      if ($this->job->dry()) {
+        echo 'Could not find job ' . $args['item'];
+        return;
+      }
 
       #echo 'job::get(): ' . $this->job->Job;
       $this->job->anilox1='-';  // todo
@@ -39,13 +54,13 @@ class Job extends BaseDB {
       $this->job->anilox8='-';
       $f3->set('job', $this->job);
       echo Template::instance()->render('views/job.htm');
-    }
-    function post() {
-    }
-    function put() {
-    }
-    function delete() {
-    }
+  }
+  function post() {
+  }
+  function put() {
+  }
+  function delete() {
+  }
 }
 
 
