@@ -1,5 +1,8 @@
 <?php
 
+// assume F3 is in a directory parallel to this one
+// bootstrap too
+
 // F3 init
 $f3 = require_once('../fatfree-master/lib/base.php');
 $f3->set('AUTOLOAD', __dir__ . ';classes/');
