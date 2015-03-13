@@ -1,7 +1,7 @@
 <?php
 
 class Job extends BaseDB {
-  protected $job;
+  protected $job, $tpl;
   protected $table='v_jprint';
 
   public function __construct() {
@@ -14,32 +14,40 @@ class Job extends BaseDB {
     #echo 'in Job::beforeRoute()>';
     #$this->logger->write('in Job::beforeRoute()');
   }
+  //function afterRoute($f3) { 
+  // see parent: this is where the page is drawn, based on $tpl
+  //}
+
+  function root() {   // handle /
+    $this->tpl = 'views/root.htm';
+  }
+
   function find() {
     if ($this->f3->exists('POST.job')) {
       $find = $this->f3->get('POST.job');
     } else if ($this->f3->exists('GET.job')) {
       $find = $this->f3->get('GET.job');
     } else {
-      echo Template::instance()->render('views/jobsearch.htm');
+      // no value yet, show search  form
+      $this->tpl = 'views/jobsearch.htm';
       return;
     }
     echo "<h3>find=$find</h3>";
     $this->logger->write('in Job::found() got:' . $find);
-    $this->f3->reroute("/job/$find");
+    $this->f3->reroute("/job/$find");   // show that job
   }
   function getall() {
-      //echo 'job::display(): ' . $this->job->Job;
-      // several entries
-      $f3=$this->f3;
-      $f3->set('result',$this->db->exec('SELECT * FROM jobcard limit 3'));
-      echo Template::instance()->render('views/jobs.htm');
+      $this->f3->set('result', $this->db->exec('SELECT * FROM jobcard limit 3'));
+      $this->tpl = 'views/jobs.htm';
   }
 
-  function get($f3, $args) { 
+  function get($f3, $args) {   // show one job
       //print_r($args);
       $this->job->load(array('Job=?', $args['item']));
       if ($this->job->dry()) {
         echo 'Could not find job ' . $args['item'];
+        // todo: jump to find()
+        //$this->f3->reroute("/find");
         return;
       }
 
@@ -53,7 +61,8 @@ class Job extends BaseDB {
       $this->job->anilox7='-';
       $this->job->anilox8='-';
       $f3->set('job', $this->job);
-      echo Template::instance()->render('views/job.htm');
+      #echo Template::instance()->render('views/job2.htm');
+      $this->tpl = 'views/job.htm';
   }
   function post() {
   }
