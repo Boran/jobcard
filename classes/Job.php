@@ -52,14 +52,6 @@ class Job extends BaseDB {
     }
 
     #echo 'job::get(): ' . $this->job->Job;
-    $this->job->anilox1='-';  // todo
-    $this->job->anilox2='-';
-    $this->job->anilox3='-';
-    $this->job->anilox4='-';
-    $this->job->anilox5='-';
-    $this->job->anilox6='-';
-    $this->job->anilox7='-';
-    $this->job->anilox8='-';
     $f3->set('job', $this->job);
     $this->tpl = 'views/job.htm';
   }

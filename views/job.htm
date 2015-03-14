@@ -1,16 +1,25 @@
 <!-- job.htm -->
 <div class="container">
-  <p>
-      <button class="btn " type="button" data-toggle="collapse" data-target="#collapseGeneral" aria-expanded="false" aria-controls="collapseGeneral">General</button>
-      <button class="btn " type="button" data-toggle="collapse" data-target="#collapsePrinting" aria-expanded="false" aria-controls="collapsePrinting">Printing</button>
-  </p>
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 
-  <div class="collapse in" id="collapseGeneral" aria-expanded="true">
-  <h3>General</h3>
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingOne">
+      <h4 class="panel-title">
+      <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">General: Jobcard <strong>{{@job.Job}}</strong>, {{@job.Print_ref}}</a>
+      </h4>
+    </div>
+    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne"><div class="panel-body">
+
   <div class="row">
     <div class="col-xs-3">
       <table class="table table-condensed"><tbody>
-        <tr><td>Jobcard</td><td><strong><mark>{{@job.Job}}</mark></strong></td></tr>
+      <exclude> 
+        <tr><td>Jobcard</td><td><strong><mark>{{@job.Job}}</mark></strong></td></tr> 
+        <hr>
+        <p>Product reference:</p>
+        <p class="lead">
+        {{@job.Print_ref}}</p>
+      </exclude>
         <tr><td>Order contact</td><td>{{@job.Ord_contact}}</td></tr>
         <tr><td>Order No.</td><td>{{@job.Ord_no}}</td></tr>
         <tr><td>Order date</td><td>{{@job.Ord_date}}</td></tr>
@@ -38,7 +47,7 @@
         <tr><td>Stock item</td><td>{{@job.S_item_Lookup}}</td></tr>
         <tr><td>Spec</td><td><strong>{{@job.Spec}}</strong></td></tr>
         <tr><td>Film/bags?</td><td>{{@job.Film_or_bags}}</td></tr>
-        <tr><td>Job approved by</td><td></td></tr>
+        <tr><td>Product</td><td>{{@job.Prod_codeLookup}}</td></tr>
         <tr><td>Unit</td><td>{{@job.UnitOfSale}}</td></tr>
       </tbody></table>
     </div>
@@ -49,17 +58,21 @@
       {{@job.ADDRESS_2}}<br>
       {{@job.ADDRESS_3}}<br>
       {{@job.ADDRESS_4}}
-      <address>
-      <hr>
-      <p>Product reference:</p>
-      <p class="lead">
-      {{@job.Print_ref}}</p>
+      </address>
     </div>
   </div>
   </div>
+  </div></div> <!-- panel-bodylanel-collapse -->
 
-  <div class="collapse in" id="collapsePrinting" aria-expanded="true">
-  <h3>Printing</h3>
+
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingTwo">
+      <h4 class="panel-title">
+      <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">Printing</a>
+      </h4>
+    </div>
+    <div id="collapseTwo" class="panel-collapse collapse " role="tabpanel" aria-labelledby="headingTwo"><div class="panel-body">
+
   <div class="row">
     <div class="col-xs-3">
       <table class="table table-striped"><tbody>
@@ -72,16 +85,19 @@
         <tr><td>Plates</td><td>{{@job.Plates}}</td></tr>
       </tbody></table>
     </div>
-    <div class="col-xs-3">
+    <exclude>
       {{@job.Print_ref}}<br>
+    </exclude>
+    <div class="col-xs-3">
       {{@job.Pr_design1}}<br>
       {{@job.Pr_barcode1}}
       <table class="table table-condensed"><tbody>
         <tr><td>Sides</td><td>{{@job.Pr_sides}}</td></tr>
         <tr><td>Steroes</td><td>{{@job.Pr_no_stereo}} {{@job.Pr_no_across}} a</td></tr>
         <tr><td>Roll size</td><td>{{@job.Pr_rollsize}}</td></tr>
-        <tr><td>Cylinder</td><td>{{@job.Pr_eyemark}}</td></tr>
-        <tr><td>Eyemark</td><td>{{@job.Pr_direction}}</td></tr>
+        <tr><td>Cylinder</td><td>{{@job.PrintCylinder}}</td></tr>
+        <tr><td>Eyemark</td><td>{{@job.Pr_eyemark}}</td></tr>
+        <tr><td>Repeat</td><td>{{@job.Pr_direction}}</td></tr>
         <tr><td>Position</td><td>{{@job.Pr_position}}</td></tr>
         <tr><td>Print</td><td>{{@job.Pr_type}}</td></tr>
       </tbody></table>
@@ -96,19 +112,21 @@
       <table class="table table-condensed">
       <thead><tr><th>Nr.</th><th>Colour</th><th>Anilox</th></tr></thead>
       <tbody>
-        <tr><td>1</td><td>{{@job.Colour1}}</td><td>{{@job.anilox1}}</td></tr>
-        <tr><td>2</td><td>{{@job.Colour2}}</td><td>{{@job.anilox2}}</td></tr>
-        <tr><td>3</td><td>{{@job.Colour3}}</td><td>{{@job.anilox3}}</td></tr>
-        <tr><td>4</td><td>{{@job.Colour4}}</td><td>{{@job.anilox4}}</td></tr>
-        <tr><td>5</td><td>{{@job.Colour5}}</td><td>{{@job.anilox5}}</td></tr>
-        <tr><td>6</td><td>{{@job.Colour6}}</td><td>{{@job.anilox6}}</td></tr>
-        <tr><td>7</td><td>{{@job.Colour7}}</td><td>{{@job.anilox7}}</td></tr>
-        <tr><td>8</td><td>{{@job.Colour8}}</td><td>{{@job.anilox8}}</td></tr>
+        <tr><td>1</td><td>{{@job.Colour1}}</td><td>{{@job.Anilox1}}</td></tr>
+        <tr><td>2</td><td>{{@job.Colour2}}</td><td>{{@job.Anilox2}}</td></tr>
+        <tr><td>3</td><td>{{@job.Colour3}}</td><td>{{@job.Anilox3}}</td></tr>
+        <tr><td>4</td><td>{{@job.Colour4}}</td><td>{{@job.Anilox4}}</td></tr>
+        <tr><td>5</td><td>{{@job.Colour5}}</td><td>{{@job.Anilox5}}</td></tr>
+        <tr><td>6</td><td>{{@job.Colour6}}</td><td>{{@job.Anilox6}}</td></tr>
+        <tr><td>7</td><td>{{@job.Colour7}}</td><td>{{@job.Anilox7}}</td></tr>
+        <tr><td>8</td><td>{{@job.Colour8}}</td><td>{{@job.Anilox8}}</td></tr>
       </tbody></table>
     </div>
     <div class="col-xs-12">Instructions: {{@job.pr_text}}<hr></div>
   </div>
   </div> <!-- printing -->
+  </div></div> <!-- panel-bodylanel-collapse -->
 
+</div>
 </div> <!-- /container -->
 <!-- end job.htm -->
