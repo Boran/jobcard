@@ -1,21 +1,23 @@
 <div class="container">
 <div class=hero-unit>
-  <h3>Next Jobs due for delivery</h3>
+  <h3>Next 30 Printer Jobs by Sequence</h3>
 </div>
 <table class="table table-hover sortable">
   <thead>
     <tr>
+      <th data-defaultsort="desc">Seq</th>
       <th>Job</th>
       <th>Printer</th>
       <th>Print_ref</th>
       <th>Customer</th>
       <th>JobStatus</th>
-      <th data-defaultsort="desc">Del_date1</th>
+      <th>Del_date1</th>
     </tr>
   </thead>
   <tbody>
   <repeat group="{{ @result }}" value="{{ @item }}">
    <tr>
+    <td>{{@item.prodspr}}</td>
     <td><a href={{@BASE}}/job/{{@item.Job}}>{{@item.Job}}</td>
     <td>{{@item.PrinterLookup}}</td>
     <td>{{@item.Print_ref}}</td>

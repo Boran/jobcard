@@ -68,7 +68,7 @@
   <div class="panel panel-default">
     <div class="panel-heading" role="tab" id="headingTwo">
       <h4 class="panel-title">
-      <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">Printing</a>
+      <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">Printing: {{@job.PrinterLookup}}</a>
       </h4>
     </div>
     <div id="collapseTwo" class="panel-collapse collapse " role="tabpanel" aria-labelledby="headingTwo"><div class="panel-body">
@@ -104,7 +104,7 @@
     </div>
     <div class="col-xs-3 ">
       <table class="table "><tbody>
-        <tr><td>Rewind: {{@job.Pr_rewdir}}</td><td><img src={{@BASE}}/images/rewdir{{@job.Pr_rewdir}}.png></td></tr>
+        <tr><td>Rewind: {{@job.Pr_rewdir}}</td><td><img src={{@BASE}}/images/rewdirp{{@job.Pr_rewdir}}.png></td></tr>
 <exclude>
 <img src={{@BASE}}/images/rewdirp1.png>
 </exclude>
@@ -129,6 +129,42 @@
   </div>
   </div> <!-- printing -->
   </div></div> <!-- panel-bodylanel-collapse -->
+
+
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingDel">
+      <h4 class="panel-title">
+      <a data-toggle="collapse" data-parent="#accordion" href="#collapseDel" aria-expanded="true" aria-controls="collapseDel">Delivery/Pallets</a>
+      </h4>
+    </div>
+    <div id="collapseDel" class="panel-collapse collapse " role="tabpanel" aria-labelledby="headingDel"><div class="panel-body">
+
+  <div class="row">
+    <div class="col-xs-3">
+      <table class="table table-condensed"><tbody>
+        <tr><td>For food use</td><td>todo</td></tr>
+        <tr><td>Pallet layout</td><td>todo</td></tr>
+        <tr><td>Roll diam</td><td>todo</td></tr>
+        <tr><td>Roll weight</td><td>todo</td></tr>
+      </tbody></table>
+    </div>
+    <div class="col-xs-3">
+      <table class="table table-condensed"><tbody>
+        <tr><td>Shrink wrap pallet</td><td>{{@job.Pallet_shrink}}</td></tr>
+        <tr><td>Strap pallet</td><td>{{@job.Pallet_strap}}</td></tr>
+        <tr><td>Stack reels</td><td>{{@job.Stack_reels}}</td></tr>
+        <tr><td>Pallet</td><td>todo</td></tr>
+      </tbody></table>
+    </div>
+    <div class="col-xs-3">Packaging Instructions: {{@job.pack_text}}</div>
+    <div class="col-xs-3">Delivery Instructions: {{@job.del_text}}</div>
+    </div>
+  </div>
+  </div> <!-- Delivery -->
+  </div></div> <!-- panel-bodylanel-collapse -->
+
+
+  <div class="col-xs-12">Additional Instructions: {{@job.Extra_text}}<hr></div>
 
 </div>
 </div> <!-- /container -->
