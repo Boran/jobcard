@@ -1,5 +1,11 @@
 <!-- job.htm -->
 <div class="container">
+  <p>
+      <button class="btn " type="button" data-toggle="collapse" data-target="#collapseGeneral" aria-expanded="false" aria-controls="collapseGeneral">General</button>
+      <button class="btn " type="button" data-toggle="collapse" data-target="#collapsePrinting" aria-expanded="false" aria-controls="collapsePrinting">Printing</button>
+  </p>
+
+  <div class="collapse in" id="collapseGeneral" aria-expanded="true">
   <h3>General</h3>
   <div class="row">
     <div class="col-xs-3">
@@ -49,9 +55,10 @@
       <p class="lead">
       {{@job.Print_ref}}</p>
     </div>
-
+  </div>
   </div>
 
+  <div class="collapse in" id="collapsePrinting" aria-expanded="true">
   <h3>Printing</h3>
   <div class="row">
     <div class="col-xs-3">
@@ -101,8 +108,7 @@
     </div>
     <div class="col-xs-12">Instructions: {{@job.pr_text}}<hr></div>
   </div>
-<!--
--->
+  </div> <!-- printing -->
+
 </div> <!-- /container -->
 <!-- end job.htm -->
-
