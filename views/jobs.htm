@@ -1,12 +1,29 @@
 <div class="container">
 <div class=hero-unit>
-  <h3>List a few jobs</h3>
+  <h3>Next Jobs due for delivery</h3>
 </div>
-<repeat group="{{ @result }}" value="{{ @item }}">
-   <div class="row">
-    <div class=col-xs-1>Job {{@item.jcard_no}}</div>
-    <div class=col-xs-11>{{ @item.Cust_code  }} {{ @item.lastchange  }} {{ @item.cost_note }} </div>
-    <!-- <div class="clearfix visible-md-block"></div>  -->
-  </div>
-</repeat>
+<table class="table table-hover sortable">
+  <thead>
+    <tr>
+      <th>Job</th>
+      <th>Printer</th>
+      <th>Print_ref</th>
+      <th>Customer</th>
+      <th>JobStatus</th>
+      <th data-defaultsort="desc">Del_date1</th>
+    </tr>
+  </thead>
+  <tbody>
+  <repeat group="{{ @result }}" value="{{ @item }}">
+   <tr>
+    <td><a href={{@BASE}}/job/{{@item.Job}}>{{@item.Job}}</td>
+    <td>{{@item.PrinterLookup}}</td>
+    <td>{{@item.Print_ref}}</td>
+    <td>{{@item.Customer}}</td>
+    <td>{{@item.JobStatus}}</td>
+    <td>{{ @item.Del_date1 }}</td>
+  </tr>
+  </repeat>
+  </tbody>
+</table>
 </div>

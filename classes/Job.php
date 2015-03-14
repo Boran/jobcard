@@ -38,7 +38,9 @@ class Job extends BaseDB {
     $this->f3->reroute("/job/$find");   // show that job
   }
   function getall() {
-    $this->f3->set('result', $this->db->exec('SELECT * FROM jobcard limit 3'));
+    $limit=$this->f3->get('joblistlimit');
+    $sql = "select Job, PrinterLookup, Print_ref, Customer, JobStatus, Del_date1 from v_jprint limit $limit";
+    $this->f3->set('result', $this->db->exec($sql));
     $this->tpl = 'views/jobs.htm';
   }
 

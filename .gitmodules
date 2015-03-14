@@ -1,6 +1,9 @@
-#[submodule "jobsystem.layouts"]
-#	path = jobsystem.layouts
-#	url = boran_git@ssh.alwaysdata.com:jobsystem.layouts
 [submodule "images"]
 	path = images
 	url = boran_git@ssh.alwaysdata.com:jobsystem.images
+#[submodule "jobsystem.layouts"]
+#	path = jobsystem.layouts
+#	url = boran_git@ssh.alwaysdata.com:jobsystem.layouts
+#[submodule "bootstrap-sortable"]
+#	path = bootstrap-sortable
+#	url = https://github.com/drvic10k/bootstrap-sortable.git
