@@ -102,9 +102,12 @@
         <tr><td>Print</td><td>{{@job.Pr_type}}</td></tr>
       </tbody></table>
     </div>
-    <div class="col-xs-3 table-bordered">
+    <div class="col-xs-3 ">
       <table class="table "><tbody>
-        <tr><td>Rewind</td><td>{{@job.Pr_rewdir}}</td></tr>
+        <tr><td>Rewind: {{@job.Pr_rewdir}}</td><td><img src={{@BASE}}/images/rewdir{{@job.Pr_rewdir}}.png></td></tr>
+<exclude>
+<img src={{@BASE}}/images/rewdirp1.png>
+</exclude>
         <tr><td>Ink Type</td><td>{{@job.Ink_Type}}</td></tr>
       </tbody></table>
     </div>
