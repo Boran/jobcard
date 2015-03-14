@@ -1,11 +1,9 @@
 <?php
 
-
 // F3 init
-// assume F3 is in a directory parallel to this one
-// bootstrap too
-$f3 = require_once('../fatfree-master/lib/base.php');
-$f3->set('AUTOLOAD', __dir__ . ';classes/');
+// assume F3 is in this repo
+$f3 = require_once('lib/base.php');
+$f3->set('AUTOLOAD', __dir__ . ';classes/;lib/');
 
 // read config settings, with defaults
 $f3->config('default.ini');
@@ -19,11 +17,13 @@ $db=new DB\SQL(sprintf("mysql:host=%s;port=3306;dbname=%s", $f3->get('dbhost'), 
   \Registry::set('db', $db);
 
 $logger = new \Log($f3->get('logfile'));
-#$logger->write('called index.php');
 \Registry::set('logger', $logger);
 
-// </init> done -------------------
+// <f3 init> done -------------------
 
+if ($debug == 3) {
+  $logger->write('index.php');
+}
 
 #$job=new DB\SQL\Mapper($db,'jobcard');
 #$job->load(array('jcard_no=?','3'));
