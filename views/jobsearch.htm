@@ -1,4 +1,9 @@
 <div class="container">
+
+<check if="{{ @warn }}">
+  <div class="alert alert-warning">{{@warn}}</div>
+</check>
+
 <form name="find" action="/jobcard/find" method="POST">
   <div class="form-group">
     <label for="inputSearch">Job no.</label>

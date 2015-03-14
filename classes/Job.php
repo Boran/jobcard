@@ -19,6 +19,7 @@ class Job extends BaseDB {
   //}
 
   function root() {   // handle /
+    $this->f3->set('message', 'Welcome to the Job System');
     $this->tpl = 'views/root.htm';
   }
 
@@ -29,40 +30,38 @@ class Job extends BaseDB {
       $find = $this->f3->get('GET.job');
     } else {
       // no value yet, show search  form
+      $this->f3->set('warn', '');
       $this->tpl = 'views/jobsearch.htm';
       return;
     }
-    echo "<h3>find=$find</h3>";
     $this->logger->write('in Job::found() got:' . $find);
     $this->f3->reroute("/job/$find");   // show that job
   }
   function getall() {
-      $this->f3->set('result', $this->db->exec('SELECT * FROM jobcard limit 3'));
-      $this->tpl = 'views/jobs.htm';
+    $this->f3->set('result', $this->db->exec('SELECT * FROM jobcard limit 3'));
+    $this->tpl = 'views/jobs.htm';
   }
 
   function get($f3, $args) {   // show one job
-      //print_r($args);
-      $this->job->load(array('Job=?', $args['item']));
-      if ($this->job->dry()) {
-        echo 'Could not find job ' . $args['item'];
-        // todo: jump to find()
-        //$this->f3->reroute("/find");
-        return;
-      }
+    //print_r($args);
+    $this->job->load(array('Job=?', $args['item']));
+    if ($this->job->dry()) {  // could not find it
+      $this->f3->set('warn', 'Could not find job ' . $args['item']);
+      $this->tpl = 'views/jobsearch.htm';
+      return;
+    }
 
-      #echo 'job::get(): ' . $this->job->Job;
-      $this->job->anilox1='-';  // todo
-      $this->job->anilox2='-';
-      $this->job->anilox3='-';
-      $this->job->anilox4='-';
-      $this->job->anilox5='-';
-      $this->job->anilox6='-';
-      $this->job->anilox7='-';
-      $this->job->anilox8='-';
-      $f3->set('job', $this->job);
-      #echo Template::instance()->render('views/job2.htm');
-      $this->tpl = 'views/job.htm';
+    #echo 'job::get(): ' . $this->job->Job;
+    $this->job->anilox1='-';  // todo
+    $this->job->anilox2='-';
+    $this->job->anilox3='-';
+    $this->job->anilox4='-';
+    $this->job->anilox5='-';
+    $this->job->anilox6='-';
+    $this->job->anilox7='-';
+    $this->job->anilox8='-';
+    $f3->set('job', $this->job);
+    $this->tpl = 'views/job.htm';
   }
   function post() {
   }
