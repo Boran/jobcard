@@ -22,6 +22,10 @@ class Job extends BaseDB {
     $this->f3->set('message', 'Welcome to the Job System');
     $this->tpl = 'views/root.htm';
   }
+  function about() {  
+    $this->f3->set('message', 'Todo: General: sales rep, spec/job approve by, price/unit+kgs. Delivey:pallet params, product approved by.');
+    $this->tpl = 'views/root.htm';
+  }
 
   function find() {
     if ($this->f3->exists('POST.job')) {
