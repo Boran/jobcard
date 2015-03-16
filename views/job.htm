@@ -138,6 +138,75 @@
   </div></div> <!-- panel-bodylanel-collapse -->
 
 
+
+<check if="{{ @job.Lamination }}">
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingLm">
+      <h4 class="panel-title">
+      <a data-toggle="collapse" data-parent="#accordion" href="#collapseLm" aria-expanded="true" aria-controls="collapseLm">Lamination</a>
+      </h4>
+    </div>
+    <div id="collapseLm" class="panel-collapse collapse " role="tabpanel" aria-labelledby="headingLm"><div class="panel-body">
+
+  <div class="row">
+    <div class="col-xs-3">
+      <table class="table table-condensed"><tbody>
+        <tr><td>Lm meters</td><td>{{@job.Lm_meters}}</td></tr>
+        <tr><td>Sleeve</td><td>{{@job.LmSleeve}}</td></tr>
+        <tr><td>Setup time</td><td>{{@job.Lm_setup}}</td></tr>
+      </tbody></table>
+    </div>
+    <div class="col-xs-6">
+      <table class="table table-condensed"><tbody>
+        <tr><td>Top</td><td>{{@job.Lm_A_matLookup}}</td><td>{{@job.Lm_a_size}}</td><td>{{@job.Lm_a_gauge}}</td></tr>
+        <tr><td>Mid</td><td>{{@job.Lm_B_matLookup}}</td><td>{{@job.Lm_b_size}}</td><td>{{@job.Lm_b_gauge}}</td></tr>
+        <tr><td>Bottom</td><td>{{@job.Lm_C_matLookup}}</td><td>{{@job.Lm_c_size}}</td><td>{{@job.Lm_c_gauge}}</td></tr>
+      </tbody></table>
+    </div>
+    <div class="col-xs-3">Rew.direction: {{@job.Lm_rewdir}}</div>
+    </div>
+    <check if="{{ @job.lm_text }}">
+      <div class="col-xs-12">Instructions: {{@job.lm_text}}<hr></div>
+    </check>
+  </div>
+  </div> <!-- lamination -->
+  </div></div> <!-- panel-bodylanel-collapse -->
+</check>
+
+
+<check if="{{ @job.Conversion }}">
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingCn">
+      <h4 class="panel-title">
+      <a data-toggle="collapse" data-parent="#accordion" href="#collapseCn" aria-expanded="true" aria-controls="collapseCn">Conversion</a>
+      </h4>
+    </div>
+    <div id="collapseCn" class="panel-collapse collapse " role="tabpanel" aria-labelledby="headingCn"><div class="panel-body">
+
+  <div class="row">
+    <div class="col-xs-3">
+      <table class="table table-condensed"><tbody>
+        <tr><td>Lm meters</td><td>{{@job.Lm_meters}}</td></tr>
+        <tr><td>Sleeve</td><td>{{@job.LmSleeve}}</td></tr>
+        <tr><td>Setup time</td><td>{{@job.Lm_setup}}</td></tr>
+      </tbody></table>
+    </div>
+    <div class="col-xs-6">
+      <table class="table table-condensed"><tbody>
+      </tbody></table>
+    </div>
+    <div class="col-xs-3">Rew.direction: {{@job.Lm_rewdir}}</div>
+    </div>
+    <check if="{{ @job.cn_text }}">
+      <div class="col-xs-12">Instructions: {{@job.cn_text}}<hr></div>
+    </check>
+  </div>
+  </div> <!-- conversion -->
+  </div></div> <!-- panel-bodylanel-collapse -->
+</check>
+
+
+
   <div class="panel panel-default">
     <div class="panel-heading" role="tab" id="headingDel">
       <h4 class="panel-title">
