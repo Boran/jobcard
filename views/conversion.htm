@@ -1,0 +1,53 @@
+
+<check if="{{ @job.Conversion }}">
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingCn">
+      <h4 class="panel-title">
+      <a data-toggle="collapse" data-parent="#accordion" href="#collapseCn" aria-expanded="true" aria-controls="collapseCn">Conversion: {{@job.Converter}}</a>
+      </h4>
+    </div>
+    <div id="collapseCn" class="panel-collapse collapse " role="tabpanel" aria-labelledby="headingCn"><div class="panel-body">
+
+  <div class="row">
+    <div class="col-xs-3">
+      <table class="table table-condensed"><tbody>
+        <tr><td>Post Gusset</td><td>{{@job.Gus_width}}</td></tr>
+        <tr><td>Setup time</td><td>{{@job.Cn_setup}}</td></tr>
+      </tbody></table>
+    </div>
+    <div class="col-xs-3">
+      <table class="table table-condensed"><tbody>
+        <tr><td>Size(mm)</td><td>{{@job.Overall_width}} x {{@job.Gus_width}} x {{@job.Cn_size}}</td></tr>
+        <tr><td>Print pos.</td><td>{{@job.Pr_position}}</td></tr>
+        <tr><td>Qty/pack</td><td>{{@job.Cn_packsz}}</td></tr>
+        <tr><td>POR</td><td>{{@job.Cn_por}}</td></tr>
+        <tr><td>No. bags/reel</td><td>{{@job.Cn_bagreel}}</td></tr>
+        <tr><td>Up</td><td>{{@job.cn_up}}</td></tr>
+      </tbody></table>
+    </div>
+    <div class="col-xs-3">
+      <table class="table table-condensed"><tbody>
+        <tr><td>Packaging</td><td>{{@job.pack_type_lookup}}</td></tr>
+        <tr><td>Carton type</td><td>{{@job.Carton_type}}</td></tr>
+        <tr><td>Perforations</td><td>{{@job.Cn_perfno}}</td></tr>
+        <tr><td>Perforation position</td><td>{{@job.Cn_perfpos}}</td></tr>
+      </tbody></table>
+    </div>
+    <div class="col-xs-3">
+      <table class="table table-condensed"><tbody>
+        <tr><td>Wickets?</td><td>{{@job.Cn_wick}}</td></tr>
+        <tr><td>Quantity/wicket</td><td>{{@job.Cn_wick_qn}}</td></tr>
+        <tr><td>Wicket size</td><td>{{@job.cn_wick_sz_lookup}}</td></tr>
+        <tr><td>Wicket type</td><td>{{@job.cn_wick_ty_lookup}}</td></tr>
+        <tr><td>Flap size</td><td>{{@job.Flap_size}}</td></tr>
+        <tr><td>Bottom Gusset</td><td>{{@job.Bottom_gusset}}</td></tr>
+      </tbody></table>
+    </div>
+    <check if="{{ @job.cn_text }}">
+      <div class="col-xs-12">Instructions: {{@job.cn_text}}<hr></div>
+    </check>
+  </div>
+  </div> <!-- conversion -->
+  </div></div> <!-- panel-bodylanel-collapse -->
+</check>
+
