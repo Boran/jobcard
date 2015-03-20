@@ -1,0 +1,76 @@
+<check if="{{ @job.Extrusion }}">
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingEx">
+      <h4 class="panel-title">
+      <a data-toggle="collapse" data-parent="#accordion" href="#collapseEx" aria-expanded="true" aria-controls="collapseEx">Extrusion: {{@job.Extruder}}</a>
+      </h4>
+    </div>
+    <div id="collapseEx" class="panel-collapse collapse " role="tabpanel" aria-labelledby="headingEx"><div class="panel-body">
+
+  <div class="row">
+    <div class="col-xs-3">
+      <table class="table table-condensed"><tbody>
+        <tr><td>Width Blown</td><td>{{@job.Ex_overall_width}}</td></tr>
+        <tr><td>Gusseted to</td><td>{{@job.Gus_width}}</td></tr>
+        <tr><td>Spec Thickness</td><td>{{@job.Ex_toler}}</td></tr>
+        <tr><td>Run Thickness</td><td>{{@job.Ex_thick2}}</td></tr>
+        <tr><td>Average Density</td><td>{{@job.Ex_toler}}</td></tr>
+      </tbody></table>
+    </div>
+    <div class="col-xs-4">
+      <table class="table table-condensed"><tbody>
+        <tr><td>Film type</td><td>{{@job.ex_filmtype_lookup}}<img src={{@BASE}}/images/{{@job.ex_filmtype_image}}></td></tr>
+        <tr><td>Colour</td><td>{{@job.Film_col}}</td></tr>
+        <tr><td>Weight(kgs)</td><td>{{@job.Ex_weight}}</td></tr>
+        <tr><td>Mts each clock</td><td>{{@job.Ex_meters}}</td></tr>
+        <tr><td>Treated</td><td>{{@job.Ex_treat}}</td></tr>
+        <tr><td>Micro perf.</td><td>{{@job.Ex_perf}}</td></tr>
+      </tbody></table>
+    </div>
+    <div class="col-xs-2">
+      <table class="table table-condensed"><tbody>
+        <tr><td>S.%MD</td><td>{{@job.ex_shrinkmd}}</td></tr>
+        <tr><td>S.%TD</td><td>{{@job.ex_shrinktd}}</td></tr>
+        <tr><td>Core</td><td>{{@job.ex_core}}</td></tr>
+        <tr><td>Tear stren.</td><td>{{@job.ex_tear}}</td></tr>
+        <tr><td>Target BUR</td><td>{{@job.ex_targetbur}}</td></tr>
+      </tbody></table>
+    </div>
+    <div class="col-xs-3">
+      <table class="table table-condensed"><tbody>
+        <tr><td>Roll</td><td>1   2    3   4</td></tr>
+        <tr><td>.</td><td>{{@job.ex_roll1}} {{@job.ex_roll2}} {{@job.ex_roll3}} {{@job.ex_roll4}}</td></tr>
+        <tr><td>Up</td><td>{{@job.ExUp}}</td></tr>
+        <tr><td>Rollsize</td><td>{{@job.Ex_rollsize}}</td></tr>
+        <tr><td>No. of Rolls</td><td>{{@job.Ex_no_rolls}}</td></tr>
+        <tr><td>Wrap rolls</td><td>{{@job.Ex_wrap}}</td></tr>
+        <tr><td>Labels</td><td>{{@job.Ex_labels}}</td></tr>
+        <tr><td>Take Trim</td><td>{{@job.ex_trim}}</td></tr>
+      </tbody></table>
+    </div>
+
+    <check if="{{ @job.ex_text }}">
+      <div class="col-xs-12">Instructions: {{@job.ex_text}}<hr></div>
+    </check>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-12">
+      <h4>EXT A</h4><br/>
+      <p>Thickness {{@job.Ex_l1_guage}} % ??? mu  DENSA</p>
+      <table class="table table-condensed"><tbody>
+        <tr><td>{{@job.Ex_l1_m1_per}}%</td><td>{{@job.Gus_width}}</td></tr>
+        <tr><td>{{@job.Ex_l1_m2_per}}%</td><td>{{@job.Gus_width}}</td></tr>
+        <tr><td>{{@job.Ex_l1_m3_per}}%</td><td>{{@job.Gus_width}}</td></tr>
+        <tr><td>{{@job.Ex_l1_m4_per}}%</td><td>{{@job.Gus_width}}</td></tr>
+        <tr><td>{{@job.Ex_l1_m5_per}}%</td><td>{{@job.Gus_width}}</td></tr>
+        <tr><td>{{@job.Ex_l1_m6_per}}%</td><td>{{@job.Gus_width}}</td></tr>
+      </tbody></table>
+      <p>Slip: {{@job.e_slipa}}</p>
+    </div>
+  </div> 
+
+  </div> 
+  </div></div> <!-- panel-bodylanel-collapse -->
+</check>
+
