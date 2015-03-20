@@ -1,0 +1,43 @@
+<check if="{{ @job.Slitting }}">
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingSl">
+      <h4 class="panel-title">
+      <a data-toggle="collapse" data-parent="#accordion" href="#collapseSl" aria-expanded="true" aria-controls="collapseLm">Slitting: {{@job.slitter}}</a>
+      </h4>
+    </div>
+    <div id="collapseSl" class="panel-collapse collapse " role="tabpanel" aria-labelledby="headingSl"><div class="panel-body">
+
+  <div class="row">
+    <div class="col-xs-3">
+      <table class="table table-condensed"><tbody>
+        <tr><td>Labels</td><td>{{@job.Sl_labels}}</td></tr>
+        <tr><td>Film type</td><td>{{@job.sl_filmtype_lookup}}</td></tr>
+        <tr><td>Size</td><td>{{@job.Overall_width}}</td></tr>
+      </tbody></table>
+    </div>
+    <div class="col-xs-3">
+      <table class="table table-condensed"><tbody>
+        <tr><td>Wrap Reels</td><td>{{@job.Sl_wrap}}</td></tr>
+        <tr><td>Roll size</td><td>{{@job.Sl_rollsize}}</td></tr>
+        <tr><td>Up</td><td>{{@job.sl_up}}</td></tr>
+      </tbody></table>
+    </div>
+    <div class="col-xs-3">
+      <table class="table table-condensed"><tbody>
+        <tr><td>Perforation type</td><td>{{@job.sl_perf_type}}</td></tr>
+        <tr><td>Size</td><td>{{@job.sl_perf_size}}</td></tr>
+        <tr><td>Rows</td><td>{{@job.sl_perf_rows}}</td></tr>
+        <tr><td>Pattern</td><td>{{@job.Sl_perf_pattern}}</td></tr>
+      </tbody></table>
+    </div>
+    <div class="col-xs-3">
+        Rewind: {{@job.Sl_rewdir}}<img src={{@BASE}}/images/rewdirp{{@job.Sl_rewdir}}.png>
+    </div>
+    <check if="{{ @job.sl_text }}">
+      <div class="col-xs-12">Instructions: {{@job.sl_text}}<hr></div>
+    </check>
+  </div>
+  </div> 
+  </div></div> <!-- panel-bodylanel-collapse -->
+</check>
+
