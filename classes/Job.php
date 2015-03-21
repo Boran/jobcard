@@ -26,6 +26,9 @@ class Job extends BaseDB {
     $this->f3->set('message', 'Todo: General: sales rep, spec/job approve by, price/unit+kgs. Delivey:pallet params, product approved by.');
     $this->tpl = 'views/root.htm';
   }
+  function foo($str) {
+   return "$str bar";
+  }
 
   function find() {
     if ($this->f3->exists('POST.job')) {
@@ -41,6 +44,7 @@ class Job extends BaseDB {
     $this->logger->write('in Job::found() got:' . $find);
     $this->f3->reroute("/job/$find");   // show that job
   }
+
   function getall() {
     $limit=$this->f3->get('joblistlimit');
     $sql = "select prodpr, prodspr, Job, PrinterLookup, Print_ref, Customer, JobStatus, Del_date1 from v_jprint where Printing='Y' order by prodpr DESC limit $limit";

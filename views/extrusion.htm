@@ -59,14 +59,16 @@
       <div class="col-xs-12">Instructions: {{@job.ex_text}}<hr></div>
     </check>
   </div>
-
+<exlude>
+</exclude>
   <div class="row">
     <div class="col-xs-12">
       <h4>EXT A</h4><br/>
-      <p>Thickness {{ '{0,number,decimal,0}',@job.Ex_l1_guage|format }}% ??? mu  DENSA</p>
+      <p>Thickness {{ '{0,number,decimal,0}',@job.Ex_l1_guage|format }}% {{@job.Ex_thick2*@job.Ex_l1_guage/100}}mu  Dens.
+      {{ '{0,number,decimal,3}', @job.Ex_l1_m1_per*@job.Ex_l1_m1_dens/100 + @job.Ex_l1_m2_per*@job.Ex_l1_m2_dens/100 |format }}</p>
       <table class="table table-condensed"><tbody>
-        <tr><td>{{ '{0,number,decimal,0}',@job.Ex_l1_m1_per|format }}%</td><td>{{@job.Gus_width}}</td></tr>
-        <tr><td>{{ '{0,number,decimal,0}',@job.Ex_l1_m2_per|format }}%</td><td>{{@job.Gus_width}}</td></tr>
+        <tr><td>{{ '{0,number,decimal,0}',@job.Ex_l1_m1_per|format }}%</td><td>{{@job.Ex_l1_m1_mat}} {{@job.Ex_l1_m1_dens}}</td></tr>
+        <tr><td>{{ '{0,number,decimal,0}',@job.Ex_l1_m2_per|format }}%</td><td>{{@job.Ex_l1_m2_mat}} {{@job.Ex_l1_m2_dens}}</td></tr>
         <tr><td>{{ '{0,number,decimal,0}',@job.Ex_l1_m3_per|format }}%</td><td>{{@job.Gus_width}}</td></tr>
         <tr><td>{{ '{0,number,decimal,0}',@job.Ex_l1_m4_per|format }}%</td><td>{{@job.Gus_width}}</td></tr>
         <tr><td>{{ '{0,number,decimal,0}',@job.Ex_l1_m5_per|format }}%</td><td>{{@job.Gus_width}}</td></tr>
