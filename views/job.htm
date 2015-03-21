@@ -13,8 +13,7 @@
   <div class="row">
     <div class="col-xs-3">
       <table class="table table-condensed"><tbody>
-  <exclude> 
-     ----- experiments ---
+<exclude> ----- experiments ---
         <tr><td>Jobcard</td><td><strong><mark>{{@job.Job}}</mark></strong></td></tr> 
         <hr>
         <p>Product reference:</p>
@@ -25,7 +24,7 @@
         <tr><td>Order date</td><td>{{ '{0,date,long}',strtotime(@job.Ord_date)|format }}</td></tr>
         <tr><td>Order date</td><td>{{ '{0,date,custom,%d-%m-%y}',strtotime(@job.Ord_date)|format }}</td></tr>
         <tr><td>Order date</td><td>{{ '{0,time}',strtotime(@job.Ord_date)|format }}</td></tr>
-    </exclude>
+</exclude>
         <tr><td>Order contact</td><td>{{@job.Ord_contact}}</td></tr>
         <tr><td>Order No.</td><td>{{@job.Ord_no}}</td></tr>
         <tr><td>Order date</td><td>{{ '{0,date}',strtotime(@job.Ord_date)|format }}</td></tr>
