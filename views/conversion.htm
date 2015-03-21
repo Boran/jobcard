@@ -1,5 +1,5 @@
 
-<check if="{{ @job.Conversion }}">
+<check if="{{ @job.Conversion<>'N' }}">
   <div class="panel panel-default">
     <div class="panel-heading" role="tab" id="headingCn">
       <h4 class="panel-title">
@@ -13,6 +13,7 @@
       <table class="table table-condensed"><tbody>
         <tr><td>Post Gusset</td><td>{{@job.Gus_width}}</td></tr>
         <tr><td>Setup time</td><td>{{@job.Cn_setup}}</td></tr>
+        <tr><td>Speed</td><td>{{@job.Cn_set_speed}}</td></tr>
       </tbody></table>
     </div>
     <div class="col-xs-3">

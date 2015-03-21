@@ -5,7 +5,7 @@
   <div class="panel panel-default">
     <div class="panel-heading" role="tab" id="headingOne">
       <h4 class="panel-title">
-      <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">General: Jobcard <strong>{{@job.Job}}</strong>, {{@job.Print_ref}}</a>
+      <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">General: Jobcard <strong>{{@job.Job}}</strong>, "{{@job.Print_ref}}"</a>
       </h4>
     </div>
     <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne"><div class="panel-body">
@@ -22,7 +22,10 @@
       </exclude>
         <tr><td>Order contact</td><td>{{@job.Ord_contact}}</td></tr>
         <tr><td>Order No.</td><td>{{@job.Ord_no}}</td></tr>
-        <tr><td>Order date</td><td>{{@job.Ord_date}}</td></tr>
+<exclude>
+        <tr><td>Order date</td><td>{{ '{0,date,custom,%MM%yy}',@job.Ord_date|format }}</td></tr>
+</exclude>
+        <tr><td>Order date</td><td>{{ @job.Ord_date }}</td></tr>
         <tr><td>Del date1</td><td><strong>{{@job.Del_date1}}</strong></td></tr>
         <tr><td>Del date2</td><td>{{@job.Del_date2}}</td></tr>
         <tr><td>Cust. part no.</td><td>{{@job.Cust_part}}</td></tr>
@@ -36,8 +39,8 @@
         <tr><td>Length</td><td><strong>{{@job.Cn_size}}</strong></td></tr>
         <tr><td>Bottom gusset</td><td>{{@job.Bottom_gusset}}</td></tr>
         <tr><td>Flapsize</td><td>{{@job.Flap_size}}</td></tr>
-        <tr><td>Thickness</td><td>{{@job.Guage}}</td></tr>
-        <tr><td>Quantity</td><td><strong>{{@job.Quantity}}</strong></td></tr>
+        <tr><td>Thickness</td><td>{{@job.Guage}} mu</td></tr>
+        <tr><td>Quantity</td><td><strong>{{@job.Quantity}} x {{@job.UnitOfSale}}</strong></td></tr>
       </tbody></table>
     </div>
     <div class="col-xs-3">
@@ -46,9 +49,8 @@
         <tr><td>Job status</td><td>{{@job.JobStatus}}</td></tr>
         <tr><td>Stock item</td><td>{{@job.S_item_Lookup}}</td></tr>
         <tr><td>Spec</td><td><strong>{{@job.Spec}}</strong></td></tr>
-        <tr><td>Film/bags?</td><td>{{@job.Film_or_bags}}</td></tr>
         <tr><td>Product</td><td>{{@job.Prod_codeLookup}}</td></tr>
-        <tr><td>Unit</td><td>{{@job.UnitOfSale}}</td></tr>
+        <tr><td>Film/bags?</td><td>{{@job.Film_or_bags}}</td></tr>
       </tbody></table>
     </div>
     <div class="col-xs-3">
@@ -59,6 +61,10 @@
       {{@job.ADDRESS_3}}<br>
       {{@job.ADDRESS_4}}
       </address>
+      <table class="table table-condensed"><tbody>
+        <tr><td>Spec approved by</td><td>{{@job.Spec_by}}</td></tr>
+        <tr><td>Job approved by</td><td>{{@job.Entered_by}}</td></tr>
+      </tbody></table>
     </div>
   </div>
   </div>
@@ -73,71 +79,7 @@
   </check>
 
 <include href="views/slitting.htm"/>
-
-  <div class="panel panel-default">
-    <div class="panel-heading" role="tab" id="headingTwo">
-      <h4 class="panel-title">
-      <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">Printing: {{@job.PrinterLookup}}</a>
-      </h4>
-    </div>
-    <div id="collapseTwo" class="panel-collapse collapse " role="tabpanel" aria-labelledby="headingTwo"><div class="panel-body">
-
-  <div class="row">
-    <div class="col-xs-3">
-      <table class="table table-striped"><tbody>
-        <tr><td>Machine</td><td>{{@job.PrinterLookup}}</td></tr>
-        <tr><td>Material</td><td>{{@job.pr_material}}</td></tr>
-        <tr><td>Thickness</td><td>{{@job.Pr_thick}}</td></tr>
-        <tr><td>Width</td><td>{{@job.Pr_width}}</td></tr>
-        <tr><td>Weight</td><td>{{@job.Pr_kgs}}</td></tr>
-        <tr><td>Metres</td><td>{{@job.pr_m}}</td></tr>
-        <tr><td>Plates</td><td>{{@job.Plates}}</td></tr>
-      </tbody></table>
-    </div>
-    <exclude>
-      {{@job.Print_ref}}<br>
-    </exclude>
-    <div class="col-xs-3">
-      <table class="table table-condensed"><tbody>
-        <tr><td>Design</td><td>{{@job.Pr_design1}}</td></tr>
-        <tr><td>Barcode</td><td>{{@job.Pr_barcode1}}</td></tr>
-        <tr><td>Sides</td><td>{{@job.Pr_sides}}</td></tr>
-        <tr><td>Steroes</td><td>{{@job.Pr_no_stereo}} {{@job.Pr_no_across}} a</td></tr>
-        <tr><td>Roll size</td><td>{{@job.Pr_rollsize}}</td></tr>
-        <tr><td>Cylinder</td><td>{{@job.PrintCylinder}}</td></tr>
-        <tr><td>Eyemark</td><td>{{@job.Pr_eyemark}}</td></tr>
-        <tr><td>Repeat</td><td>{{@job.Pr_direction}}</td></tr>
-        <tr><td>Position</td><td>{{@job.Pr_position}}</td></tr>
-        <tr><td>Print</td><td>{{@job.Pr_type}}</td></tr>
-      </tbody></table>
-    </div>
-    <div class="col-xs-3 ">
-      <table class="table "><tbody>
-        <tr><td>Rewind: {{@job.Pr_rewdir}}</td><td><img src={{@BASE}}/images/rewdirp{{@job.Pr_rewdir}}.png></td></tr>
-        <tr><td>Ink Type</td><td>{{@job.Ink_Type}}</td></tr>
-      </tbody></table>
-    </div>
-    <div class="col-xs-3">
-      <table class="table table-condensed">
-      <thead><tr><th>Nr.</th><th>Colour</th><th>Anilox</th></tr></thead>
-      <tbody>
-        <tr><td>1</td><td>{{@job.Colour1}}</td><td>{{@job.Anilox1}}</td></tr>
-        <tr><td>2</td><td>{{@job.Colour2}}</td><td>{{@job.Anilox2}}</td></tr>
-        <tr><td>3</td><td>{{@job.Colour3}}</td><td>{{@job.Anilox3}}</td></tr>
-        <tr><td>4</td><td>{{@job.Colour4}}</td><td>{{@job.Anilox4}}</td></tr>
-        <tr><td>5</td><td>{{@job.Colour5}}</td><td>{{@job.Anilox5}}</td></tr>
-        <tr><td>6</td><td>{{@job.Colour6}}</td><td>{{@job.Anilox6}}</td></tr>
-        <tr><td>7</td><td>{{@job.Colour7}}</td><td>{{@job.Anilox7}}</td></tr>
-        <tr><td>8</td><td>{{@job.Colour8}}</td><td>{{@job.Anilox8}}</td></tr>
-      </tbody></table>
-    </div>
-    <div class="col-xs-12">Instructions: {{@job.pr_text}}<hr></div>
-  </div>
-  </div> <!-- printing -->
-  </div></div> <!-- panel-bodylanel-collapse -->
-
-
-
+<include href="views/printing.htm"/>
 <include href="views/lamination.htm"/>
 <include href="views/conversion.htm"/>
 
