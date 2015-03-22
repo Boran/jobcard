@@ -10,6 +10,7 @@ $f3->config('default.ini');
 if (file_exists('config.ini'))
   $f3->config('config.ini');
 $debug = $f3->get('debug');
+$f3->set('LOGS', '/tmp/');  //default is ./
 $logger = new \Log($f3->get('logfile'));
 \Registry::set('logger', $logger);
 

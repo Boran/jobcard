@@ -17,6 +17,13 @@ class BaseDB extends  \Prefab {  // singleton
       echo Template::instance()->render('views/layout.htm'); // std page
     }
   }
+
+  function log($msg, $level) {
+    // todo: level 1-3 ($debug in config.ini)
+    $this->logger->write($msg);
+    syslog(LOG_INFO, $msg);
+  }
+
 }
 
 
