@@ -12,6 +12,7 @@
       <th>Customer</th>
       <th>JobStatus</th>
       <th>Del_date1</th>
+      <th>Depts</th>
     </tr>
   </thead>
   <tbody>
@@ -24,6 +25,13 @@
     <td>{{@item.Customer}}</td>
     <td>{{@item.JobStatus}}</td>
     <td>{{@item.Del_date1}}</td>
+    <td>
+       <check if="{{ @item.Extrusion<>'N' }}">E</check>
+       <check if="{{ @item.Slitting<>'N' }}">S</check>
+       <check if="{{ @item.Lamination<>'N' }}">L</check>
+       <check if="{{ @item.Printing<>'N' }}">P</check>
+       <check if="{{ @item.Conversion<>'N' }}">C</check>
+    </td>
   </tr>
   </repeat>
   </tbody>

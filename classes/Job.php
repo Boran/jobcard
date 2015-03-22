@@ -44,7 +44,7 @@ class Job extends BaseDB {
 
   function getall() {
     $limit=$this->f3->get('joblistlimit');
-    $sql = "select prodpr, prodspr, Job, PrinterLookup, Print_ref, Customer, JobStatus, Del_date1 from v_jprint where Printing='Y' order by prodpr DESC limit $limit";
+    $sql = "select prodpr, prodspr, Job, PrinterLookup, Print_ref, Customer, JobStatus, Del_date1, Extrusion, Printing, Slitting, Lamination, Conversion from v_jprint where Printing='Y' order by prodpr DESC limit $limit";
     $this->f3->set('result', $this->db->exec($sql));
     $this->tpl = 'views/jobs.htm';
   }
