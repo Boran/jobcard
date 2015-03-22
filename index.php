@@ -10,14 +10,14 @@ $f3->config('default.ini');
 if (file_exists('config.ini'))
   $f3->config('config.ini');
 $debug = $f3->get('debug');
+$logger = new \Log($f3->get('logfile'));
+\Registry::set('logger', $logger);
 
 # connect to database
 $db=new DB\SQL(sprintf("mysql:host=%s;port=3306;dbname=%s", $f3->get('dbhost'),  $f3->get('dbname')),
   $f3->get('dbuser'), $f3->get('dbpw') );
   \Registry::set('db', $db);
 
-$logger = new \Log($f3->get('logfile'));
-\Registry::set('logger', $logger);
 
 // <f3 init> done -------------------
 

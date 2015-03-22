@@ -81,22 +81,53 @@ class Job extends BaseDB {
     $this->job->Ex_l2_m2_dens = $this->sqlGetMat('Ex_l2_m2_type', 'Ex_l2_m2', 'density');
     $this->job->Ex_l2_m3_dens = $this->sqlGetMat('Ex_l2_m3_type', 'Ex_l2_m3', 'density');
     $this->job->Ex_l2_m4_dens = $this->sqlGetMat('Ex_l2_m4_type', 'Ex_l2_m4', 'density');
-    $this->job->Ex_l2_m5_dens = $this->sqlGetMat('Ex_l2_m5_type', 'Ex_l2_m5', 'density');
-    $this->job->Ex_l2_m6_dens = $this->sqlGetMat('Ex_l2_m6_type', 'Ex_l2_m6', 'density');
+    #$this->job->Ex_l2_m5_dens = $this->sqlGetMat('Ex_l2_m5_type', 'Ex_l2_m5', 'density');
+    #$this->job->Ex_l2_m6_dens = $this->sqlGetMat('Ex_l2_m6_type', 'Ex_l2_m6', 'density');
     $this->job->Ex_l2_m1_mat  = $this->sqlGetMat('Ex_l2_m1_type', 'Ex_l2_m1');
     $this->job->Ex_l2_m2_mat  = $this->sqlGetMat('Ex_l2_m2_type', 'Ex_l2_m2');
     $this->job->Ex_l2_m3_mat  = $this->sqlGetMat('Ex_l2_m3_type', 'Ex_l2_m3');
     $this->job->Ex_l2_m4_mat  = $this->sqlGetMat('Ex_l2_m4_type', 'Ex_l2_m4');
-    $this->job->Ex_l2_m5_mat  = $this->sqlGetMat('Ex_l2_m5_type', 'Ex_l2_m5');
-    $this->job->Ex_l2_m6_mat  = $this->sqlGetMat('Ex_l2_m6_type', 'Ex_l2_m6');
+    #$this->job->Ex_l2_m5_mat  = $this->sqlGetMat('Ex_l2_m5_type', 'Ex_l2_m5');
+    #$this->job->Ex_l2_m6_mat  = $this->sqlGetMat('Ex_l2_m6_type', 'Ex_l2_m6');
 
+    $this->job->Ex_l3_m1_dens = $this->sqlGetMat('Ex_l3_m1_type', 'Ex_l3_m1', 'density');
+    $this->job->Ex_l3_m2_dens = $this->sqlGetMat('Ex_l3_m2_type', 'Ex_l3_m2', 'density');
+    $this->job->Ex_l3_m3_dens = $this->sqlGetMat('Ex_l3_m3_type', 'Ex_l3_m3', 'density');
+    $this->job->Ex_l3_m4_dens = $this->sqlGetMat('Ex_l3_m4_type', 'Ex_l3_m4', 'density');
+    $this->job->Ex_l3_m5_dens = $this->sqlGetMat('Ex_l3_m5_type', 'Ex_l3_m5', 'density');
+    $this->job->Ex_l3_m6_dens = $this->sqlGetMat('Ex_l3_m6_type', 'Ex_l3_m6', 'density');
+    $this->job->Ex_l3_m1_mat  = $this->sqlGetMat('Ex_l3_m1_type', 'Ex_l3_m1');
+    $this->job->Ex_l3_m2_mat  = $this->sqlGetMat('Ex_l3_m2_type', 'Ex_l3_m2');
+    $this->job->Ex_l3_m3_mat  = $this->sqlGetMat('Ex_l3_m3_type', 'Ex_l3_m3');
+    $this->job->Ex_l3_m4_mat  = $this->sqlGetMat('Ex_l3_m4_type', 'Ex_l3_m4');
+    $this->job->Ex_l3_m5_mat  = $this->sqlGetMat('Ex_l3_m5_type', 'Ex_l3_m5');
+    $this->job->Ex_l3_m6_mat  = $this->sqlGetMat('Ex_l3_m6_type', 'Ex_l3_m6');
+
+    // cannot create virtual fields that depend on virtual fields it seems:
+    // Unknown column 'Ex_l1_m1_dens' in 'field list'
+    //$this->job->Ex_l1_dens = 'Ex_l1_m1_per*Ex_l1_m1_dens/100 + Ex_l1_m2_per*Ex_l1_m2_dens/100';
+    //$this->job->Ex_av_dens =
+  }
+
+  /*
+   * create auniquie patch for customer specs (inherited from the Delphi function)
+   */
+  function getCustShortcut() {
+    #$cust = " Test./( - cUst+ \' l\"td";
+    $cust = $this->job->Customer;
+    // strip all punctionuation
+    $cust = preg_replace("/(\/|,|-|\.|\(|\\\|\)|\'|\"|\s)/", '', strtolower(trim($cust)));
+    $cust = substr($cust, 0, 7);  // first 7 chars
+
+    $custcode = preg_replace("/(\/|,|-|\.|\(|\\\|\)|\'|\"|\s)/", '', strtolower(trim($this->job->Cust_code)));
+    #$custcode = "$cust-$custcode";
+    #$this->logger->write("code=$custcode cust=$cust");
+    return "$cust-$custcode";
   }
 
   function get($f3, $args) {   // show one job
     //print_r($args);
     $this->sqlGetMats();
-    //$this->job->Ex_l1_dens = 'Ex_l1_m1_per*Ex_l1_m1_dens/100 + Ex_l1_m2_per*Ex_l1_m2_dens/100';
-    //$this->job->Ex_av_dens =
     // pull the dataset
     $this->job->load(array('Job=?', $args['item']));
     if ($this->job->dry()) {  // could not find it
@@ -105,9 +136,9 @@ class Job extends BaseDB {
       return;
     }
 
-    #$result = $this->db->exec('SELECT density FROM e_gran where Code="' . $this->job->Ex_l1_m1 .'"');
     #$result = $this->db->exec("SELECT density FROM e_gran where Code=1");
-    #echo 'job::get(): ' . $this->job->Job;
+    #$Ex_av_dens = $this->job->Ex_l1_m1_per * $this->job->Ex_l1_m1_dens/100;
+    $this->getCustShortcut();
     $f3->set('job', $this->job);
     $this->tpl = 'views/job.htm';
   }
