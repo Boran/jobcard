@@ -17,10 +17,10 @@
         <tr><td>Weight</td><td>{{@job.Pr_kgs}}</td></tr>
         <tr><td>Metres</td><td>{{@job.pr_m}}</td></tr>
         <tr><td>Plates</td><td>{{@job.Plates}}</td></tr>
-        <tr><td>Design</td><td>
-          <a href={{@jobini.SpecDesignPath}}/spec/{{@job.Spec}}.pdf>Normal</a>,
-          <a href={{@jobini.SpecDesignPath}}/spec/{{@job.Spec}}_tech.pdf>Technical</a>,
-          <a href={{@jobini.SpecDesignPath}}/spec/{{@job.Spec}}_step.pdf>Stepped</a>
+        <tr><td>Design sheet</td><td>
+          <a target=_blank href={{@jobini.SpecDesignPath}}/{{@CustPath}}/spec{{@job.Spec}}.pdf>Normal</a>,
+          <a href={{@jobini.SpecDesignPath}}/{{@CustPath}}/spec{{@job.Spec}}_tech.pdf>Technical</a>,
+          <a href={{@jobini.SpecDesignPath}}/{{@CustPath}}/spec{{@job.Spec}}_step.pdf>Stepped</a>
         </td></tr>
       </tbody></table>
     </div>

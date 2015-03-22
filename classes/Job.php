@@ -102,7 +102,6 @@ class Job extends BaseDB {
     $this->job->Ex_l3_m4_mat  = $this->sqlGetMat('Ex_l3_m4_type', 'Ex_l3_m4');
     $this->job->Ex_l3_m5_mat  = $this->sqlGetMat('Ex_l3_m5_type', 'Ex_l3_m5');
     $this->job->Ex_l3_m6_mat  = $this->sqlGetMat('Ex_l3_m6_type', 'Ex_l3_m6');
-
     // cannot create virtual fields that depend on virtual fields it seems:
     // Unknown column 'Ex_l1_m1_dens' in 'field list'
     //$this->job->Ex_l1_dens = 'Ex_l1_m1_per*Ex_l1_m1_dens/100 + Ex_l1_m2_per*Ex_l1_m2_dens/100';
@@ -122,8 +121,10 @@ class Job extends BaseDB {
     $custcode = preg_replace("/(\/|,|-|\.|\(|\\\|\)|\'|\"|\s)/", '', strtolower(trim($this->job->Cust_code)));
     #$custcode = "$cust-$custcode";
     #$this->logger->write("code=$custcode cust=$cust");
-    return "$cust-$custcode";
+    #return "$cust-$custcode";
+    return "$custcode-$cust";
   }
+
 
   function get($f3, $args) {   // show one job
     //print_r($args);
@@ -138,7 +139,7 @@ class Job extends BaseDB {
 
     #$result = $this->db->exec("SELECT density FROM e_gran where Code=1");
     #$Ex_av_dens = $this->job->Ex_l1_m1_per * $this->job->Ex_l1_m1_dens/100;
-    $this->getCustShortcut();
+    $f3->set('CustPath', $this->getCustShortcut());
     $f3->set('job', $this->job);
     $this->tpl = 'views/job.htm';
   }
