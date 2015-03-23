@@ -7,6 +7,20 @@
     </div>
     <div id="collapseEx" class="panel-collapse collapse " role="tabpanel" aria-labelledby="headingEx"><div class="panel-body">
 
+  <!-- calc densities-->
+  <set Ex_l1_dens="{{@job.Ex_l1_m1_per}}*{{@job.Ex_l1_m1_dens}}/100 + {{@job.Ex_l1_m2_per}}*{{@job.Ex_l1_m2_dens}}/100
+                 + {{@job.Ex_l1_m3_per}}*{{@job.Ex_l1_m3_dens}}/100 + {{@job.Ex_l1_m4_per}}*{{@job.Ex_l1_m4_dens}}/100
+                 + {{@job.Ex_l1_m5_per}}*{{@job.Ex_l1_m5_dens}}/100 + {{@job.Ex_l1_m6_per}}*{{@job.Ex_l1_m6_dens}}/100 "/>
+  <set Ex_l2_dens="{{@job.Ex_l2_m1_per}}*{{@job.Ex_l2_m1_dens}}/100 + {{@job.Ex_l2_m2_per}}*{{@job.Ex_l2_m2_dens}}/100
+                 + {{@job.Ex_l2_m3_per}}*{{@job.Ex_l2_m3_dens}}/100 + {{@job.Ex_l2_m4_per}}*{{@job.Ex_l2_m4_dens}}/100 "/>
+  <set Ex_l3_dens="{{@job.Ex_l3_m1_per}}*{{@job.Ex_l3_m1_dens}}/100 + {{@job.Ex_l3_m2_per}}*{{@job.Ex_l3_m2_dens}}/100
+                 + {{@job.Ex_l3_m3_per}}*{{@job.Ex_l3_m3_dens}}/100 + {{@job.Ex_l3_m4_per}}*{{@job.Ex_l3_m4_dens}}/100
+                 + {{@job.Ex_l3_m5_per}}*{{@job.Ex_l3_m5_dens}}/100 + {{@job.Ex_l3_m6_per}}*{{@job.Ex_l3_m6_dens}}/100 "/>
+  <set Ex_totalmu="{{@job.Ex_l1_guage}} + {{@job.Ex_l2_guage}} + {{@job.Ex_l3_guage}}"/>
+  <set Ex_dens="{{@Ex_l1_dens}} * {{@job.Ex_l1_guage}} / {{@Ex_totalmu}} 
+               +{{@Ex_l2_dens}} * {{@job.Ex_l2_guage}} / {{@Ex_totalmu}}
+               +{{@Ex_l3_dens}} * {{@job.Ex_l3_guage}} / {{@Ex_totalmu}} "/>
+
   <div class="row">
     <div class="col-xs-2">
       <table class="table table-condensed"><tbody>
@@ -14,7 +28,7 @@
         <tr><td>Gusseted to</td><td>{{@job.Gus_width}}</td></tr>
         <tr><td>Spec Thickness</td><td>{{@job.Ex_toler}}</td></tr>
         <tr><td>Run Thickness</td><td>{{@job.Ex_thick2}}</td></tr>
-        <tr><td>Average Density</td><td>{{@job.Ex_toler}}</td></tr>
+        <tr><td>Average Density</td><td>{{ '{0,number,decimal,3}',@Ex_dens |format }}</td></tr>
       </tbody></table>
     </div>
     <div class="col-xs-3">
@@ -66,23 +80,28 @@
         {{ '{0,number,decimal,3}', @job.Ex_l1_m1_per*@job.Ex_l1_m1_dens/100 + @job.Ex_l1_m2_per*@job.Ex_l1_m2_dens/100 
                                  + @job.Ex_l1_m3_per*@job.Ex_l1_m3_dens/100 + @job.Ex_l1_m4_per*@job.Ex_l1_m4_dens/100 
                                  + @job.Ex_l1_m5_per*@job.Ex_l1_m5_dens/100 + @job.Ex_l1_m6_per*@job.Ex_l1_m6_dens/100 
-      <set foo="0.1234" />
       <set Ex_l1_dens={{@job.Ex_l1_m1_per*@job.Ex_l1_m1_dens/100 + @job.Ex_l1_m2_per*@job.Ex_l1_m2_dens/100
                       + @job.Ex_l1_m3_per*@job.Ex_l1_m3_dens/100 + @job.Ex_l1_m4_per*@job.Ex_l1_m4_dens/100
                       + @job.Ex_l1_m5_per*@job.Ex_l1_m5_dens/100 + @job.Ex_l1_m6_per*@job.Ex_l1_m6_dens/100
       }}/>
+      <set foo="0.1234" />
+      <set foo={{0.1234}} />
+      <set foo="{{@job.Ex_l1_m1_per+ @job.Ex_l1_m2_per}}" />
+      <set foo=@job.Ex_l1_m1_per+ @job.Ex_l1_m2_per />
+      <set foo="{{0.1234}}" />
+      <set foo="{{0.1234 * 2}}" />
+      <set Ex_l1_dens="{{@job.Ex_l1_m1_per*@job.Ex_l1_m1_dens/100 + @job.Ex_l1_m2_per*@job.Ex_l1_m2_dens/100
+                      + @job.Ex_l1_m3_per*@job.Ex_l1_m3_dens/100 + @job.Ex_l1_m4_per*@job.Ex_l1_m4_dens/100
+                      + @job.Ex_l1_m5_per*@job.Ex_l1_m5_dens/100 + @job.Ex_l1_m6_per*@job.Ex_l1_m6_dens/100 }}"/>
+      <set foo="{{@job.Ex_l1_m1_per}} * {{@job.Ex_l1_m1_dens}}/100+ {{@job.Ex_l1_m2_per}}" />
+      foo={{@foo}}
       {{@foo}}
 </exclude>
   <div class="row">
     <div class="col-xs-4">
       <h4>EXT A</h4><br/>
-      <set Ex_l1_dens=@job.Ex_l1_m1_per*@job.Ex_l1_m1_dens/100 + @job.Ex_l1_m2_per*@job.Ex_l1_m2_dens/100
-                      + @job.Ex_l1_m3_per*@job.Ex_l1_m3_dens/100 + @job.Ex_l1_m4_per*@job.Ex_l1_m4_dens/100
-                      + @job.Ex_l1_m5_per*@job.Ex_l1_m5_dens/100 + @job.Ex_l1_m6_per*@job.Ex_l1_m6_dens/100
-      />
       <p>Thickness {{ '{0,number,decimal,0}',@job.Ex_l1_guage|format }}% => {{@job.Ex_thick2*@job.Ex_l1_guage/100}}mu (Dens.
-        {{ '{0,number,decimal,3}', 123.456
-        |format }})</p>
+        {{ '{0,number,decimal,3}', @Ex_l1_dens |format }})</p>
       <table class="table table-condensed"><tbody>
         <tr><td>{{ '{0,number,decimal,0}',@job.Ex_l1_m1_per|format }}%</td><td>{{@job.Ex_l1_m1_mat}}</td></tr>
         <tr><td>{{ '{0,number,decimal,0}',@job.Ex_l1_m2_per|format }}%</td><td>{{@job.Ex_l1_m2_mat}}</td></tr>
@@ -97,9 +116,7 @@
     <div class="col-xs-4">
       <h4>EXT B</h4><br/>
       <p>Thickness {{ '{0,number,decimal,0}',@job.Ex_l2_guage|format }}% {{@job.Ex_thick2*@job.Ex_l2_guage/100}}mu  Dens.
-        {{ '{0,number,decimal,3}', @job.Ex_l2_m1_per*@job.Ex_l2_m1_dens/100 + @job.Ex_l2_m2_per*@job.Ex_l2_m2_dens/100
-                                 + @job.Ex_l2_m3_per*@job.Ex_l2_m3_dens/100 + @job.Ex_l2_m4_per*@job.Ex_l2_m4_dens/100
-        |format }}</p>
+        {{ '{0,number,decimal,3}', @Ex_l2_dens |format }})</p>
       <table class="table table-condensed"><tbody>
         <tr><td>{{ '{0,number,decimal,0}',@job.Ex_l2_m1_per|format }}%</td><td>{{@job.Ex_l2_m1_mat}}</td></tr>
         <tr><td>{{ '{0,number,decimal,0}',@job.Ex_l2_m2_per|format }}%</td><td>{{@job.Ex_l2_m2_mat}}</td></tr>
@@ -114,10 +131,7 @@
     <div class="col-xs-4">
       <h4>EXT C</h4><br/>
       <p>Thickness {{ '{0,number,decimal,0}',@job.Ex_l3_guage|format }}% {{@job.Ex_thick2*@job.Ex_l3_guage/100}}mu  Dens.
-        {{ '{0,number,decimal,3}', @job.Ex_l3_m1_per*@job.Ex_l3_m1_dens/100 + @job.Ex_l3_m2_per*@job.Ex_l3_m2_dens/100
-                                 + @job.Ex_l3_m3_per*@job.Ex_l3_m3_dens/100 + @job.Ex_l3_m4_per*@job.Ex_l3_m4_dens/100
-                                 + @job.Ex_l3_m5_per*@job.Ex_l3_m5_dens/100 + @job.Ex_l3_m6_per*@job.Ex_l3_m6_dens/100
-        |format }}</p>
+        {{ '{0,number,decimal,3}', @Ex_l3_dens |format }})</p>
       <table class="table table-condensed"><tbody>
         <tr><td>{{ '{0,number,decimal,0}',@job.Ex_l3_m1_per|format }}%</td><td>{{@job.Ex_l3_m1_mat}}</td></tr>
         <tr><td>{{ '{0,number,decimal,0}',@job.Ex_l3_m2_per|format }}%</td><td>{{@job.Ex_l3_m2_mat}}</td></tr>
