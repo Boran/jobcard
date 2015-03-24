@@ -22,7 +22,7 @@ $db=new DB\SQL(sprintf("mysql:host=%s;port=3306;dbname=%s", $f3->get('dbhost'), 
 
 // <f3 init> done -------------------
 
-if ($debug == 3) {
+if ($debug > 3) {
   $logger->write('index.php');
 }
 

@@ -34,14 +34,16 @@ class BaseDB extends  \Prefab {  // singleton
   }
 
   function processlogin() {
-    $salt="--"; $username='administrator'; $pw='CHANGEME';  // to do
+    $salt="--"; 
+    #$username='administrator'; $pw='CHANGEME';  // to do
+    $username=$this->f3->get('POST.loginUser');
+    $pw=$this->f3->get('POST.loginPass');
 
     $auth=new \Auth($this->auth, array('id'=>'Login','pw'=>'password'));
     if ($auth->login($username, sha1($username. $salt .$pw))) {
       $this->log("authentication successful $username", 2);
       $this->f3->set('SESSION.user_id',$username);
-      #$this->root();      // jump to the front page
-      $this->f3->reroute('/');
+      $this->f3->reroute('/'); // jump to the front page
     }
     else {
       $this->log("$username login failed ");

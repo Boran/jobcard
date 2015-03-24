@@ -11,10 +11,7 @@ class Job extends BaseDB {
   }
 
   function beforeRoute() {
-    #echo 'in Job::beforeRoute()>';
-    #$this->logger->write('in Job::beforeRoute()');
-    if ($user_id=$this->f3->get('SESSION.user_id')) {  // alpha
-      //user is logged in with identifier $user_id
+    if ($user_id=$this->f3->get('SESSION.user_id')) { 
       $this->log("beforeRoute: $user_id logged in", 2);
     }
   }
@@ -126,7 +123,7 @@ class Job extends BaseDB {
   }
 
   /*
-   * create auniquie patch for customer specs (inherited from the Delphi function)
+   * create a unique path for customer specs (inherited from the Delphi function)
    */
   function getCustShortcut() {
     #$cust = " Test./( - cUst+ \' l\"td";
