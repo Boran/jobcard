@@ -30,6 +30,10 @@ class BaseDB extends  \Prefab {  // singleton
    * authentication from mysql with hashed password
    */
   function login() {
+    $this->tpl = 'views/login.htm';
+  }
+
+  function processlogin() {
     $salt="--"; $username='administrator'; $pw='CHANGEME';  // to do
 
     $auth=new \Auth($this->auth, array('id'=>'Login','pw'=>'password'));
