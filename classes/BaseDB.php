@@ -18,7 +18,7 @@ class BaseDB extends  \Prefab {  // singleton
     }
   }
 
-  function log($msg, $level) {
+  function log($msg, $level=1) {
     // todo: level 1-3 ($debug in config.ini)
     $this->logger->write($msg);
     syslog(LOG_INFO, $msg);
