@@ -27,7 +27,7 @@ class Job extends BaseDB {
     $this->tpl = 'views/root.htm';
   }
   function about() {  
-    $this->f3->set('message', 'Todo: General: sales rep, spec/job approve by, price/unit+kgs. Delivey:pallet params, product approved by.');
+    $this->f3->set('message', 'Todo: General: sales rep, price/unit+kgs. Delivey:pallet params, product approved by.');
     $this->tpl = 'views/root.htm';
   }
 
@@ -49,10 +49,22 @@ class Job extends BaseDB {
 
   function getall() {
     $limit=$this->f3->get('joblistlimit');
-    $sql = "select prodpr, prodspr, Job, PrinterLookup, Print_ref, Customer, JobStatus, Del_date1, Extrusion, Printing, Slitting, Lamination, Conversion from v_jprint where Printing='Y' order by prodpr DESC limit $limit";
+    $sql = "select prodpr, prodspr as Seq, Job, PrinterLookup as Machine, Print_ref, Customer, JobStatus, Del_date1, Extrusion, Printing, Slitting, Lamination, Conversion from v_jprint where Printing='Y' order by prodpr DESC limit $limit";
     $this->f3->set('result', $this->db->exec($sql));
+    $this->f3->set('reporttitle', "Next pending $limit Print jobs");
     $this->tpl = 'views/jobs.htm';
   }
+  function getPr() {
+    $this->getall();
+  }
+  function getEx() {
+    $limit=$this->f3->get('joblistlimit');
+    $sql = "select prodex, prodsex as Seq, Job, PrinterLookup as Machine, Print_ref, Customer, JobStatus, Del_date1, Extrusion, Printing, Slitting, Lamination, Conversion from v_jprint where Extrusion='Y' order by prodex DESC limit $limit";
+    $this->f3->set('result', $this->db->exec($sql));
+    $this->f3->set('reporttitle', "Next pending $limit Extrusion jobs");
+    $this->tpl = 'views/jobs.htm';
+  }
+
 
   function sqlGetMat($type, $mat, $value='value') {
     #$this->job->Ex_l1_m1_dens = '(case when Ex_l1_m1_type in (1) then (select density from e_gran where Code=Ex_l1_m1)
