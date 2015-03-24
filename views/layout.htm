@@ -16,6 +16,16 @@
   <include href="views/nav.htm"/>
   <!-- The body from the controller -->
   <include href="{{$tpl}}"/>
+<hr>
+<check if="{{ @SESSION }}">
+  <true> <check if="{{ @SESSION.user_id }}">
+    Login: {{@SESSION.user_id}}<br>
+    <a href="{{@BASE}}/logout">Logout</a>
+  </check></true>
+  <false>
+    <a href="{{@BASE}}/login">Login</a>
+  </false>
+</check>
 
 <!-- body footer -->
   <script src="//code.jquery.com/jquery.js"></script>  
@@ -30,5 +40,6 @@
   <link type="text/css" rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" media="all" />
   -->  
 </exclude>
+
 </body>
 </html>

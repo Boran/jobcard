@@ -8,7 +8,6 @@ class Job extends BaseDB {
     parent::__construct();
     $this->db = \Registry::get('db');
     $this->job=new DB\SQL\Mapper($this->db, $this->table);
-    $this->user=new DB\SQL\Mapper($this->db, 'person');
   }
 
   function beforeRoute() {
@@ -16,24 +15,12 @@ class Job extends BaseDB {
     #$this->logger->write('in Job::beforeRoute()');
     if ($user_id=$this->f3->get('SESSION.user_id')) {  // alpha
       //user is logged in with identifier $user_id
+      $this->log("beforeRoute: $user_id logged in", 2);
     }
   }
   //function afterRoute($f3) { 
   // see parent: this is where the page is drawn, based on $tpl
   //}
-
-  function login() {  // alpha
-     $auth=new \Auth($this->user, array('id'=>'Login','pw'=>'password'));
-    $auth->login('admin','secret');
-    if ($auth->basic()) {
-      //authentication successful
-      $f3->set('SESSION.user_id',$user->user_id);
-    }
-  }
-  function logout() {  // alpha
-    $this->f3->clear('SESSION.user_id');
-    session_commit();
-  }
 
   function root() {   // handle /
     $this->f3->set('message', 'Welcome to the Job System');
