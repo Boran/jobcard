@@ -8,8 +8,9 @@
  */
 
 class BaseDB extends  \Prefab {  // singleton
-  protected $f3, $logger, $db, $auth;
+  protected $f3, $logger, $db, $auth, $user_id;
   protected $tpl;  // the name of the template to render.
+
 
   public function __construct() {
     $this->f3     = \Base::instance();
@@ -18,12 +19,20 @@ class BaseDB extends  \Prefab {  // singleton
     $this->logger = new \Log($this->f3->get('logfile'));
     \Registry::set('logger', $this->logger);
     $this->debug = $this->f3->get('debug');
+    $this->log("BaseDB", 2);
 
     $this->db=new DB\SQL(sprintf("mysql:host=%s;port=3306;dbname=%s", $this->f3->get('dbhost'),  
       $this->f3->get('dbname')), $this->f3->get('dbuser'), $this->f3->get('dbpw') );
     \Registry::set('db', $this->db);
 
     $this->auth   = new DB\SQL\Mapper($this->db, 'person'); // login table
+  }
+
+
+  function beforeRoute($f3) {
+    if ($this->user_id=$f3->get('SESSION.user_id')) {
+      $this->log("beforeRoute: $this->user_id logged in", 2);
+    }
   }
 
   function afterRoute($f3) {   // draw the page
@@ -44,10 +53,10 @@ class BaseDB extends  \Prefab {  // singleton
 
   function log($msg, $level=1) {
     // todo: level 1-3 ($debug in config.ini)
-    if (($this->debug >2) && ($level>1)) {
+    #if (($this->debug >1) && ($level>1)) {
       $this->logger->write($msg);
       syslog(LOG_INFO, $msg);
-    }
+    #}
   }
 
 
@@ -68,11 +77,13 @@ class BaseDB extends  \Prefab {  // singleton
     $auth=new \Auth($this->auth, array('id'=>'Login','pw'=>'password'));
     if ($auth->login($username, sha1($username. $salt .$pw))) {
       $this->log("authentication successful $username", 2);
-      $this->f3->set('SESSION.user_id',$username);
-      $this->f3->reroute('/'); // jump to the front page
+      $this->f3->set('SESSION.user_id', $username);
+      $this->f3->reroute('/'); // OK: jump to the front page
     }
     else {
       $this->log("$username login failed ");
+      #$this->f3->reroute('/login');
+      #$this->f3->reroute('/'); // jump to the front page
     }
   }
 

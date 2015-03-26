@@ -14,30 +14,74 @@ class Job extends BaseDB {
 
   public function __construct() {
     parent::__construct();
-    $this->db = \Registry::get('db');
     $this->job=new DB\SQL\Mapper($this->db, $this->table);
   }
 
-  function beforeRoute() {
-    if ($user_id=$this->f3->get('SESSION.user_id')) { 
-      $this->log("beforeRoute: $user_id logged in", 2);
-    }
-  }
-  //function afterRoute($f3) { 
-  // see parent: this is where the page is drawn, based on $tpl
-  //}
-
-  function root() {   // handle /
-    // tdo: handle arguments such as "list=jobpr"
-    $this->f3->set('message', 'Welcome to the Job System');
-    $this->tpl = 'views/root.htm';
-  }
-  function about() {  
+  /* 
+   * menu / nagigation 
+   */
+  function about($f3, $args) {  
     $this->f3->set('message', 'Todo: General: sales rep, price/unit+kgs. Delivey:pallet params, product approved by.');
     $this->tpl = 'views/root.htm';
   }
 
+  function root($f3, $args) {   // handle /
+    $params=$this->f3->get('GET');
+    #echo var_dump($params);
+    #print_r($args);
+
+    if (!isset($args['item'])) {     // no item after root path
+      if (isset($params['list']) ) { // show specified report type
+        $this->getAll($params['list']);
+
+      } else {
+        #echo "no item: show all";
+        #$this->job->getAll();
+        $this->f3->set('message', 'Welcome to the Job System');
+        $this->tpl = 'views/root.htm';
+      }
+
+    } else {   // just one item
+      #echo "index: one item " . $args['item'] . '<br/>';
+      #$this->job->get('Spec');
+      if ($this->get($f3, $args)) {
+        $this->tpl = 'views/job.htm';
+      } else {
+        $this->f3->set('warn', 'Could not find job ' . $args['item']);
+        $this->tpl = 'views/jobsearch.htm';
+      };
+    }
+  }
+
+  function get($f3, $args) {   // show one job
+    $params=$this->f3->get('GET');
+    //print_r($args);
+    #echo var_dump($params);
+
+    $this->sqlGetMats();   // virtual fields
+    // pull the dataset
+    $this->job->load(array('Job=?', $args['item']));
+    if ($this->job->dry()) {  // could not find it
+      $this->f3->set('warn', 'Could not find job ' . $args['item']);
+      $this->tpl = 'views/jobsearch.htm';
+      return;
+    }
+
+    $f3->set('CustPath', $this->getCustShortcut());
+    $f3->set('job', $this->job);
+    if (isset($params['alt']) && ($params['alt'] == 'json') ) { // json
+      header('Content-Type: application/json');    // probably too late?
+      echo json_encode($this->job->cast());
+
+    } else {     // normal html
+      $this->tpl = 'views/job.htm';
+    }
+  }
+
+
+
   function find() {
+    // which job nr.?
     if ($this->f3->exists('POST.job')) {
       $find = $this->f3->get('POST.job');
     } else if ($this->f3->exists('GET.job')) {
@@ -48,28 +92,29 @@ class Job extends BaseDB {
       $this->tpl = 'views/jobsearch.htm';
       return;
     }
-    #$this->logger->write('in Job::found() got:' . $find);
     $this->log('in Job::found() got:' . $find);
     $this->f3->reroute("/job/$find");   // show that job
   }
 
 
-  /* model */
-  function getall() {
+  /* data models */
+
+  /* grab a list of jobs */
+  function getall($list='') {
     $limit=$this->f3->get('joblistlimit');
-    $sql = "select prodpr, prodspr as Seq, Job, PrinterLookup as Machine, Print_ref, Customer, JobStatus, Del_date1, Extrusion, Printing, Slitting, Lamination, Conversion from v_jprint where Printing='Y' order by prodpr DESC limit $limit";
+    // todo: limit=25&offset=50
+    switch ($list) {
+      case 'jobex':
+        $sql = "select prodex, prodsex as Seq, Job, PrinterLookup as Machine, Print_ref, Customer, JobStatus, Del_date1, Extrusion, Printing, Slitting, Lamination, Conversion from v_jprint where Extrusion='Y' order by prodex DESC limit $limit";
+        $this->f3->set('reporttitle', "Next pending $limit Extrusion jobs");
+        break;
+      case 'jobpr':
+      default:
+        $this->f3->set('reporttitle', "Next pending $limit Print jobs");
+        $sql = "select prodpr, prodspr as Seq, Job, PrinterLookup as Machine, Print_ref, Customer, JobStatus, Del_date1, Extrusion, Printing, Slitting, Lamination, Conversion from v_jprint where Printing='Y' order by prodpr DESC limit $limit";
+        break;
+    }
     $this->f3->set('result', $this->db->exec($sql));
-    $this->f3->set('reporttitle', "Next pending $limit Print jobs");
-    $this->tpl = 'views/jobs.htm';
-  }
-  function getPr() {
-    $this->getall();
-  }
-  function getEx() {
-    $limit=$this->f3->get('joblistlimit');
-    $sql = "select prodex, prodsex as Seq, Job, PrinterLookup as Machine, Print_ref, Customer, JobStatus, Del_date1, Extrusion, Printing, Slitting, Lamination, Conversion from v_jprint where Extrusion='Y' order by prodex DESC limit $limit";
-    $this->f3->set('result', $this->db->exec($sql));
-    $this->f3->set('reporttitle', "Next pending $limit Extrusion jobs");
     $this->tpl = 'views/jobs.htm';
   }
 
@@ -139,7 +184,7 @@ class Job extends BaseDB {
   function getCustShortcut() {
     #$cust = " Test./( - cUst+ \' l\"td";
     $cust = $this->job->Customer;
-    // strip all punctionuation
+    // strip all punctuation
     $cust = preg_replace("/(\/|,|-|\.|\(|\\\|\)|\'|\"|\s)/", '', strtolower(trim($cust)));
     $cust = substr($cust, 0, 7);  // first 7 chars
 
@@ -151,23 +196,6 @@ class Job extends BaseDB {
   }
 
 
-  function get($f3, $args) {   // show one job
-    //print_r($args);
-    $this->sqlGetMats();
-    // pull the dataset
-    $this->job->load(array('Job=?', $args['item']));
-    if ($this->job->dry()) {  // could not find it
-      $this->f3->set('warn', 'Could not find job ' . $args['item']);
-      $this->tpl = 'views/jobsearch.htm';
-      return;
-    }
-
-    #$result = $this->db->exec("SELECT density FROM e_gran where Code=1");
-    #$Ex_av_dens = $this->job->Ex_l1_m1_per * $this->job->Ex_l1_m1_dens/100;
-    $f3->set('CustPath', $this->getCustShortcut());
-    $f3->set('job', $this->job);
-    $this->tpl = 'views/job.htm';
-  }
 
   // Test: Json output
   // http://192.168.10.128/jobcard/jobjson/77266
