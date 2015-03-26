@@ -1,5 +1,11 @@
 <?php
 
+/*
+ * This base class takes care of common controller functions such as
+ * DB connections, logging, login/out, and calling of views.
+ * It also has some "model" chatacteristics since it has links to the user table
+ *
+ */
 
 class BaseDB extends  \Prefab {  // singleton
   protected $f3, $logger, $db, $auth;
@@ -9,6 +15,7 @@ class BaseDB extends  \Prefab {  // singleton
     $this->f3     = \Base::instance();
     $this->logger = \Registry::get('logger');
     $this->db     = \Registry::get('db');
+
     $this->auth   = new DB\SQL\Mapper($this->db, 'person'); // login table
   }
 
@@ -19,6 +26,7 @@ class BaseDB extends  \Prefab {  // singleton
     }
   }
 
+
   function log($msg, $level=1) {
     // todo: level 1-3 ($debug in config.ini)
     $this->logger->write($msg);
@@ -28,6 +36,7 @@ class BaseDB extends  \Prefab {  // singleton
 
   /* 
    * authentication from mysql with hashed password
+   * Should this be in a separate class?
    */
   function login() {
     $this->tpl = 'views/login.htm';

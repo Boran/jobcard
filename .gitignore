@@ -1,2 +1,4 @@
 tmp/*
 app-events.log
+jobcard.log
+/.idea/

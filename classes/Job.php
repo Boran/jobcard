@@ -1,5 +1,13 @@
 <?php
 
+/*
+ * This class abtracts the Job data model, but is also
+ * a controller for controlling program flow
+ * Should be they separated and how?
+ *
+ * Non Job specific controls and models are inherited.
+ *
+ */
 class Job extends BaseDB {
   protected $job, $tpl;
   protected $table='v_jprint';
@@ -20,6 +28,7 @@ class Job extends BaseDB {
   //}
 
   function root() {   // handle /
+    // tdo: handle arguments such as "list=jobpr"
     $this->f3->set('message', 'Welcome to the Job System');
     $this->tpl = 'views/root.htm';
   }
@@ -44,6 +53,8 @@ class Job extends BaseDB {
     $this->f3->reroute("/job/$find");   // show that job
   }
 
+
+  /* model */
   function getall() {
     $limit=$this->f3->get('joblistlimit');
     $sql = "select prodpr, prodspr as Seq, Job, PrinterLookup as Machine, Print_ref, Customer, JobStatus, Del_date1, Extrusion, Printing, Slitting, Lamination, Conversion from v_jprint where Printing='Y' order by prodpr DESC limit $limit";
@@ -157,6 +168,29 @@ class Job extends BaseDB {
     $f3->set('job', $this->job);
     $this->tpl = 'views/job.htm';
   }
+
+  // Test: Json output
+  // http://192.168.10.128/jobcard/jobjson/77266
+  // this should not be seperate but just give back json or a view depending on the Content-Type
+  // application/json
+  function getJson($f3, $args) {   // show one job
+    // pull the dataset
+    $this->sqlGetMats();
+    $this->job->load(array('Job=?', $args['item']));
+    if ($this->job->dry()) {  // could not find it
+      $this->f3->set('warn', 'Could not find job ' . $args['item']);
+      $this->tpl = 'views/jobsearch.htm';
+      return;
+    }
+    $f3->set('CustPath', $this->getCustShortcut());
+    $f3->set('job', $this->job);
+    #$this->tpl = 'views/job.htm';
+    // output in json format
+    #print_r($this->job->cast());  // see cast() in mapper.php
+    header('Content-Type: application/json');    // probably too late?
+    echo json_encode($this->job->cast());
+  }
+
   function next($f3, $args) {
     #print_r($this->job->Spec);
     #$this->job->next();

@@ -3,8 +3,7 @@ Experiment to view jobcards
 Learning to use Fatfree (with bootstrap).
 
 Prerequisites
-- need boranmpk mysql db
-- The fatfree-master framework and boot srap are included.
+- The fatfree framework, bootsrap, bootstrap-sortable are included.
 
 - apache: enable the rewrite module
   a2enmod rewrite
@@ -21,6 +20,7 @@ Prerequisites
   # adjust settings
   vi config.ini
 
+- need boranmpk mysql db
 
 Docs to get going
 ----------------
