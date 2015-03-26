@@ -13,8 +13,15 @@ class BaseDB extends  \Prefab {  // singleton
 
   public function __construct() {
     $this->f3     = \Base::instance();
-    $this->logger = \Registry::get('logger');
-    $this->db     = \Registry::get('db');
+
+    $this->f3->set('LOGS', '/tmp/');  //default is ./
+    $this->logger = new \Log($this->f3->get('logfile'));
+    \Registry::set('logger', $this->logger);
+    $this->debug = $this->f3->get('debug');
+
+    $this->db=new DB\SQL(sprintf("mysql:host=%s;port=3306;dbname=%s", $this->f3->get('dbhost'),  
+      $this->f3->get('dbname')), $this->f3->get('dbuser'), $this->f3->get('dbpw') );
+    \Registry::set('db', $this->db);
 
     $this->auth   = new DB\SQL\Mapper($this->db, 'person'); // login table
   }
@@ -24,13 +31,23 @@ class BaseDB extends  \Prefab {  // singleton
       $f3->set('tpl', $this->tpl);
       echo Template::instance()->render('views/layout.htm'); // std page
     }
+    // finish up
+    if ($this->debug > 4) {
+      $this->logger->write(\Registry::get('db')->log());
+    }
+    if ($this->debug > 3) {
+      $execution_time = round(microtime(true) - $this->f3->get('TIME'), 3);
+      $this->logger->write('Executed in ' . $execution_time . ' secs using ' . round(memory_get_usage() / 1024 / 1024, 2) . '/' . round(memory_get_peak_usage() / 1024 / 1024, 2) . ' MB memory/peak');
+    }
   }
 
 
   function log($msg, $level=1) {
     // todo: level 1-3 ($debug in config.ini)
-    $this->logger->write($msg);
-    syslog(LOG_INFO, $msg);
+    if (($this->debug >2) && ($level>1)) {
+      $this->logger->write($msg);
+      syslog(LOG_INFO, $msg);
+    }
   }
 
 
